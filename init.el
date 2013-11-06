@@ -32,6 +32,7 @@
 		    flx-ido
 		    dired+
 		    multiple-cursors
+		    expand-region
 		    zenburn-theme
 		    solarized-theme
 		    org
@@ -70,6 +71,10 @@
 (add-to-list 'ac-modes 'nrepl-mode)
 
 (define-key nrepl-interaction-mode-map (kbd "C-c C-d") 'ac-nrepl-popup-doc)
+
+;; Expand-region
+(global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "C-+") 'er/contract-region)
 
 ;; Additional elisp functions
 (load "~/.emacs.d/my-funcs")
