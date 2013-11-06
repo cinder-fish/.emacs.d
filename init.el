@@ -79,12 +79,6 @@
 ;; Additional elisp functions
 (load "~/.emacs.d/my-funcs")
 
-(case system-type
-  (`gnu/linux `cygwin
-   (load "~/.emacs.d/wmctrl-full-screen-toggle"))
-  (`windows-nt
-   nil))
-
 ;; org-mode
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
