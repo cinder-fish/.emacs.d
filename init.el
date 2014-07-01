@@ -20,6 +20,7 @@
 		    go-mode
 		    python-mode
 		    ruby-mode
+		    csharp-mode
 		    protobuf-mode
 		    markdown-mode
 		    log4j-mode
