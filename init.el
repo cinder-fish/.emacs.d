@@ -32,6 +32,7 @@
 		    volatile-highlights
 		    rainbow-delimiters
 		    flx-ido
+		    ido-ubiquitous
 		    dired+
 		    multiple-cursors
 		    expand-region
@@ -52,6 +53,8 @@
 (require 'uniquify)
 
 (volatile-highlights-mode t)
+
+(scroll-bar-mode -1)
 
 (ido-mode 1)
 (ido-everywhere 1)
