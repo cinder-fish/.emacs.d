@@ -23,6 +23,7 @@
 		    csharp-mode
 		    protobuf-mode
 		    markdown-mode
+		    yaml-mode
 		    log4j-mode
 		    paredit
 		    magit
