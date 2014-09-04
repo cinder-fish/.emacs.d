@@ -8,3 +8,6 @@
 (load "~/.emacs.d/move-lines")
 (require 'move-lines)
 (move-lines-binding)
+
+(load "~/.emacs.d/dired+_2014-7-26")
+(require 'dired+)
