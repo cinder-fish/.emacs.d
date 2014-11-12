@@ -11,3 +11,6 @@
 
 (load "~/.emacs.d/dired+_2014-7-26")
 (require 'dired+)
+
+(load "~/.emacs.d/org-dired-link")
+(require 'org-dired-link)
