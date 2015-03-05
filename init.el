@@ -66,6 +66,11 @@
 
 (add-hook 'after-init-hook 'global-company-mode)
 
+;; Elisp
+(add-hook 'emacs-list-mode-hook 'paredit-mode)
+(add-hook 'emacs-list-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'emacs-list-mode-hook 'eldoc-mode)
+
 ;; Clojure
 (add-hook 'clojure-mode-hook 'paredit-mode)
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
