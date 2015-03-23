@@ -63,6 +63,7 @@
 		    multiple-cursors
 		    expand-region
 		    solarized-theme
+		    smart-mode-line
 		    org
 		    gnus))
 
