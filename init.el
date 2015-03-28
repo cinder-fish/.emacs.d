@@ -31,9 +31,9 @@
 
 ;; Packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("marmalade" . "http://marmalade-repo.org/packages/")
+			 ("melpa-stable" . "http://stable.melpa.org/packages/")
 			 ("org" . "http://orgmode.org/elpa/")
-			 ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")))
+			 ("marmalade" . "http://marmalade-repo.org/packages/")))
 
 (package-initialize)
 
