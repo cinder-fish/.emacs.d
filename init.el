@@ -12,6 +12,7 @@
 ;; Setup paths
 (setq site-lisp-dir (expand-file-name "site-lisp" user-emacs-directory))
 (setq settings-dir  (expand-file-name "settings"  user-emacs-directory))
+(setq themes-dir    (expand-file-name "themes"    user-emacs-directory))
 
 (add-to-list 'load-path site-lisp-dir)
 (add-to-list 'load-path settings-dir)
@@ -62,7 +63,6 @@
 		    ido-ubiquitous
 		    multiple-cursors
 		    expand-region
-		    solarized-theme
 		    smart-mode-line
 		    org
 		    gnus))
@@ -76,6 +76,10 @@
     (require package)))
 
 (require 'uniquify)
+
+
+(add-to-list 'custom-theme-load-path themes-dir)
+(load-theme 'material t)
 
 ;; Load settings
 (dolist (file (directory-files settings-dir t "\\w+"))
@@ -92,7 +96,6 @@
 (put 'upcase-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 
-(load-theme 'solarized-dark t)
 
 (unless (server-running-p)
   (server-start))
