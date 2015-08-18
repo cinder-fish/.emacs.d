@@ -9,6 +9,7 @@
  '(desktop-save-mode t)
  '(dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^#.*#$")
  '(fringe-mode 10 nil (fringe))
+ '(indent-tabs-mode nil)
  '(linum-format " %6d ")
  '(org-agenda-files (quote ("~/org/refile.org" "~/org/main.org")))
  '(org-completion-use-ido t)

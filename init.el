@@ -32,45 +32,45 @@
 
 ;; Packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("melpa-stable" . "http://stable.melpa.org/packages/")
-			 ("org" . "http://orgmode.org/elpa/")
-			 ("marmalade" . "http://marmalade-repo.org/packages/")))
+                         ("melpa-stable" . "http://stable.melpa.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")))
 
 (package-initialize)
 
 (setq package-enable-at-startup nil)
 
 (setq my-packages '(clojure-mode
-		    clj-refactor
-		    scala-mode
-		    haskell-mode
-		    go-mode
-		    python-mode
-		    ruby-mode
-		    csharp-mode
-		    protobuf-mode
-		    markdown-mode
-		    yaml-mode
-		    log4j-mode
-		    paredit
-		    magit
-		    git-commit-mode
-		    cider
-		    company
-		    volatile-highlights
-		    rainbow-delimiters
-		    flx-ido
-		    ido-ubiquitous
-		    multiple-cursors
-		    expand-region
-		    smart-mode-line
-		    org
-		    gnus))
+                    clj-refactor
+                    scala-mode
+                    haskell-mode
+                    go-mode
+                    python-mode
+                    ruby-mode
+                    csharp-mode
+                    protobuf-mode
+                    markdown-mode
+                    yaml-mode
+                    log4j-mode
+                    paredit
+                    magit
+                    git-commit-mode
+                    cider
+                    company
+                    volatile-highlights
+                    rainbow-delimiters
+                    flx-ido
+                    ido-ubiquitous
+                    multiple-cursors
+                    expand-region
+                    smart-mode-line
+                    org
+                    gnus))
 
 (when (not package-archive-contents)
   (package-refresh-contents))
 (dolist (package my-packages)
-  (progn 
+  (progn
     (when (not (package-installed-p package))
       (package-install package))
     (require package)))
@@ -99,4 +99,3 @@
 
 (unless (server-running-p)
   (server-start))
-
