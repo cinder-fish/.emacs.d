@@ -64,6 +64,8 @@
                     multiple-cursors
                     expand-region
                     smart-mode-line
+                    golden-ratio
+                    which-key
                     org
                     gnus))
 
