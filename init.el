@@ -40,7 +40,9 @@
 
 (setq package-enable-at-startup nil)
 
-(setq my-packages '(clojure-mode
+(setq my-packages '(helm
+                    helm-ls-git
+                    clojure-mode
                     clj-refactor
                     scala-mode
                     haskell-mode
