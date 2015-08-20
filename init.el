@@ -43,7 +43,7 @@
                     helm-ls-git
                     clojure-mode
                     clj-refactor
-                    scala-mode
+                    scala-mode2
                     haskell-mode
                     go-mode
                     python-mode
