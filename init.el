@@ -46,18 +46,15 @@
                     scala-mode2
                     haskell-mode
                     go-mode
-                    python-mode
                     ruby-mode
-                    protobuf-mode
                     markdown-mode
                     yaml-mode
                     log4j-mode
                     paredit
                     magit
-                    git-commit-mode
+                    git-commit
                     cider
                     company
-                    volatile-highlights
                     rainbow-delimiters
                     flx-ido
                     ido-ubiquitous
@@ -87,8 +84,6 @@
 (dolist (file (directory-files settings-dir t "\\w+"))
   (when (file-regular-p file)
     (load file)))
-
-(volatile-highlights-mode t)
 
 (setq gc-cons-threshold 20000000)
 
