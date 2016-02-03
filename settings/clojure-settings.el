@@ -11,3 +11,4 @@
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
 (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 
+(define-key clojure-mode-map (kbd "C-c r") 'cljr-helm)
