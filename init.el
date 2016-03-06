@@ -76,14 +76,17 @@
 
 (require 'uniquify)
 
-
 (add-to-list 'custom-theme-load-path themes-dir)
 (load-theme 'material t)
 
-;; Load settings
-(dolist (file (directory-files settings-dir t "\\w+"))
+;; Load settings & site-lisp
+(defun init--load-dir (dir)
+  (dolist (file (directory-files dir t "\\w+"))
   (when (file-regular-p file)
-    (load file)))
+    (load file))))
+
+(init--load-dir settings-dir)
+(init--load-dir site-lisp-dir)
 
 (setq gc-cons-threshold 20000000)
 
