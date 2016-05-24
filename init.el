@@ -15,6 +15,8 @@
 (setq themes-dir    (expand-file-name "themes"    user-emacs-directory))
 
 (add-to-list 'load-path site-lisp-dir)
+(let ((default-directory site-lisp-dir))
+  (normal-top-level-add-subdirs-to-load-path))
 (add-to-list 'load-path settings-dir)
 
 ;; Separate custom-settings
