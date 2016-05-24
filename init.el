@@ -30,7 +30,7 @@
 (setq vc-make-backup-files t)
 
 ;; Load local proxy settings if present
-(load "proxy" t)
+(load (expand-file-name "proxy.el" user-emacs-directory) t)
 
 ;; Packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
