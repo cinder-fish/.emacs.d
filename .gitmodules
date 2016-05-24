@@ -1,0 +1,6 @@
+[submodule "site-lisp/org-reveal"]
+	path = site-lisp/org-reveal
+	url = https://github.com/yjwen/org-reveal.git
+[submodule "site-lisp/htmlize"]
+	path = site-lisp/htmlize
+	url = https://github.com/emacsmirror/htmlize.git
