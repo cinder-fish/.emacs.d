@@ -50,6 +50,7 @@
                     ruby-mode
                     markdown-mode
                     yaml-mode
+                    json-mode
                     log4j-mode
                     paredit
                     magit
