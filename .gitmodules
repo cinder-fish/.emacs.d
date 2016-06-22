@@ -7,3 +7,6 @@
 [submodule "site-lisp/exec-path-from-shell"]
 	path = site-lisp/vendored/exec-path-from-shell
 	url = https://github.com/purcell/exec-path-from-shell.git
+[submodule "site-lisp/vendored/mongo-el"]
+	path = site-lisp/vendored/mongo-el
+	url = https://github.com/m2ym/mongo-el.git
