@@ -8,12 +8,11 @@
    clojurescript-mode-hook
    cider-mode-hook)
  '(paredit-mode
-   rainbow-delimiters-mode))
+   rainbow-delimiters-mode
+   eldoc-mode))
 
 (setq nrepl-hide-special-buffers t)
 (setq cider-repl-pop-to-buffer-on-connect nil)
 (setq cider-show-error-buffer nil)
-
-(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
 (define-key clojure-mode-map (kbd "C-c r") 'cljr-helm)
