@@ -45,7 +45,6 @@
                     helm-ls-git
                     clojure-mode
                     clj-refactor
-                    scala-mode2
                     haskell-mode
                     go-mode
                     ruby-mode
@@ -65,6 +64,8 @@
                     smart-mode-line
                     golden-ratio
                     which-key
+                    request
+                    hydra
                     org
                     gnus))
 
