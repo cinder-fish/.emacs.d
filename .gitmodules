@@ -1,9 +1,9 @@
 [submodule "site-lisp/org-reveal"]
-	path = site-lisp/org-reveal
+	path = site-lisp/vendored/org-reveal
 	url = https://github.com/yjwen/org-reveal.git
 [submodule "site-lisp/htmlize"]
-	path = site-lisp/htmlize
+	path = site-lisp/vendored/htmlize
 	url = https://github.com/emacsmirror/htmlize.git
 [submodule "site-lisp/exec-path-from-shell"]
-	path = site-lisp/exec-path-from-shell
+	path = site-lisp/vendored/exec-path-from-shell
 	url = https://github.com/purcell/exec-path-from-shell.git
