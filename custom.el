@@ -17,6 +17,7 @@
  '(org-log-done (quote time))
  '(org-outline-path-complete-in-steps nil)
  '(org-refile-targets (quote ((org-agenda-files :maxlevel . 9))))
+ '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tool-bar-mode nil)

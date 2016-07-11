@@ -21,7 +21,6 @@
 
 ;; Separate custom-settings
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
 
 ;; Store backup files in local folder
 (setq backup-directory-alist
@@ -68,6 +67,7 @@
                     request
                     hydra
                     org
+                    org-trello
                     gnus))
 
 (when (not package-archive-contents)
@@ -79,6 +79,9 @@
     (require package)))
 
 (require 'uniquify)
+
+;; Load custom variables
+(load custom-file)
 
 (add-to-list 'custom-theme-load-path themes-dir)
 (load-theme 'material t)
