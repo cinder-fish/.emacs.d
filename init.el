@@ -43,6 +43,7 @@
 
 (setq my-packages '(helm
                     helm-ls-git
+                    helm-ag
                     clojure-mode
                     clj-refactor
                     haskell-mode
