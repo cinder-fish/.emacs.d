@@ -1,0 +1,483 @@
+#+TITLE: Emacs configuration
+
+* Configuration
+** Preamble
+   Configuration required by the rest of this file
+
+*** use-package
+    #+BEGIN_SRC emacs-lisp tangle: yes
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
+  (setq use-package-verbose t)
+  (setq use-package-always-ensure t)
+  (require 'use-package)
+    #+END_SRC
+
+*** auto-compile
+    #+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package auto-compile
+               :config (auto-compile-on-load-mode))
+  (setq load-prefer-newer t)
+    #+END_SRC
+
+*** config fns
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (use-package dash)
+
+      (defun my-settings/add-hooks (hooks fns)
+        "Given a list of HOOKS add FNS to each hook"
+        (--each (-table-flat 'cons hooks fns)
+          (add-hook (car it) (cdr it))))    
+    #+END_SRC
+
+** Environment
+*** Encoding
+    Ensure always use utf-8
+    #+BEGIN_SRC emacs-lisp tangle: yes
+      (prefer-coding-system 'utf-8)
+      (setq default-buffer-file-coding-system 'utf-8)
+    #+end_src
+    
+*** Inhibit startup message
+    #+BEGIN_SRC emacs-lisp tangle: yes
+      (setq inhibit-startup-message t)
+    #+END_SRC
+    
+*** GC Threshold
+    Allow higher memory usage
+    #+BEGIN_SRC emacs-lisp tangle: yes
+      (setq gc-cons-threshold 20000000)
+    #+END_SRC
+
+*** Frame decoration / behaviour
+**** Hide window decorations
+     #+BEGIN_SRC emacs-lisp tangle: yes
+      (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+      (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+      (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+     #+END_SRC
+
+**** Use visible bell
+     #+BEGIN_SRC emacs-lisp tangle: yes
+      (setq visible-bell t)
+     #+END_SRC
+
+**** Resize frames to fill available space
+     #+BEGIN_SRC emacs-lisp tangle: yes
+      (setq frame-resize-pixelwise t)
+     #+END_SRC
+
+**** Fringes
+     #+BEGIN_SRC emacs-lisp tangle: yes
+    (fringe-mode 10)
+     #+END_SRC
+
+*** TODO Add site-lisp to 'load-path
+    #+BEGIN_SRC emacs-lisp tangle: yes
+      (setq site-lisp-dir (expand-file-name "site-lisp" user-emacs-directory))
+
+      (add-to-list 'load-path site-lisp-dir)
+      (let ((default-directory site-lisp-dir))
+        (normal-top-level-add-subdirs-to-load-path))
+    #+END_SRC
+    
+*** TODO Load material theme
+    #+BEGIN_SRC emacs-lisp tangle: yes
+      (setq themes-dir (expand-file-name "themes"  user-emacs-directory))
+
+      (add-to-list 'custom-theme-load-path themes-dir)
+      (load-theme 'material t)
+    #+END_SRC
+
+*** TODO vc make backups
+    #+BEGIN_SRC emacs-lisp tangle: yes
+    (setq vc-make-backup-files t)
+    #+END_SRC
+
+*** Run Emacs server
+    Run an emacs server if not already started
+    #+BEGIN_SRC emacs-lisp tangle: yes
+  (unless (boundp 'server-process)
+    (server-start))
+    #+END_SRC
+    
+*** Use same exec-path as shell
+    On Mac use the same exec path as the shell
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (use-package exec-path-from-shell
+        :if (memq window-system '(max ns))
+        :config (exec-path-from-shell-initialize))
+    #+END_SRC
+    
+** Emacs tools / utilities
+*** Elisp Libraries
+**** dash
+     Modern composable list api, I use it so much it's actually
+     already loaded in order to execute this file
+
+**** request
+     Handy http lib, very useful for prototyping
+     #+BEGIN_SRC emacs-lisp :tangle yes
+(use-package request)
+     #+END_SRC
+
+*** Auto-completion
+    Use company for global auto-completion.
+    #+BEGIN_SRC emacs-lisp tangle: yes
+  (use-package company
+    :config (global-company-mode))
+    #+END_SRC
+
+*** Editing
+**** tabs
+     no thank you.
+     #+BEGIN_SRC emacs-lisp :tangle yes
+  (setq-default indent-tabs-mode nil)
+     #+END_SRC
+
+**** highlight matching delimiters
+     Highlight matching delimiters (, [, { etc. by colour and show the
+     current matching delimiter explicitly.
+     #+BEGIN_SRC emacs-lisp tangle: yes
+       (use-package rainbow-delimiters)
+       (show-paren-mode)
+     #+END_SRC
+
+**** multiple cursors
+     Have multiple editing cursors at once, very useful when munging data.
+     #+BEGIN_SRC emacs-lisp tangle: yes
+       (use-package multiple-cursors)
+     #+END_SRC
+
+**** expand region
+     Expand a region selection by the next-most semantic boundary, kind
+     of like double-clicking
+     #+BEGIN_SRC emacs-lisp tangle: yes
+  (use-package expand-region
+    :bind (("C-=" . er/expand-region)))
+     #+END_SRC
+     
+**** show possible keys
+     After a prefix chord is pressed show what possible further key
+     combinations are available
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (use-package which-key)
+     #+END_SRC
+
+**** use prelude move to beginning of line
+     I quite like skipping to the first non-whitespace character on a
+     line so include this fn from [[https://github.com/bbatsov/prelude][Emacs Prelude]]
+     #+BEGIN_SRC emacs-lisp :tangle yes
+(require 'prelude-move-beginning-of-line)
+(global-set-key [remap move-beginning-of-line]
+                'prelude-move-beginning-of-line)     
+     #+END_SRC
+
+**** move lines
+     Transpose the current line or region up or down
+     #+BEGIN_SRC emacs-lisp :tangle yes
+(require 'move-lines)
+(move-lines-binding)
+     #+END_SRC
+
+*** Dired
+**** Dired+    
+     Extension fns for dired
+     #+BEGIN_SRC emacs-lisp :tangle yes
+    (require 'dired+)
+     #+END_SRC
+
+**** Omit files
+     Omit '.', '..' auto-save, lock and temporary files
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^#.*#$")
+     #+END_SRC
+     
+*** Minibuffer selections
+    Use fuzzy matching when making selections in the mini buffer
+    #+BEGIN_SRC emacs-lisp tangle: yes
+  (use-package ido-ubiquitous)
+  (use-package flx-ido
+    :config (progn
+              (ido-mode 1)
+              (ido-everywhere 1)
+              (flx-ido-mode 1)
+              (setq ido-use-faces nil)))
+    #+END_SRC
+
+*** Buffer naming
+    Change the default behaviour of appending '<2>' etc. to duplicate
+    buffer names so that unique buffer names are instead derived from
+    the file name
+    #+BEGIN_SRC emacs-lisp tangle: yes
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'forward)
+    #+END_SRC
+
+*** Mode-line
+    Use a neater, more compact mode-line
+    #+BEGIN_SRC emacs-lisp tangle: yes
+  (use-package smart-mode-line
+    :config (progn
+              (display-time-mode 1)
+              (column-number-mode 1)
+
+              (setq sml/name-width (quote (10 . 44)))
+              (setq sml/shorten-directory t)
+              (setq sml/theme (quote respectful))
+
+              (setq mode-line-format
+                    (quote
+                     ("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification " " mode-line-buffer-identification sml/pos-id-separator mode-line-position
+                      (vc-mode vc-mode)
+                      sml/pre-modes-separator mode-line-modes mode-line-misc-info mode-line-end-spaces)))
+              
+              (sml/setup)))
+    #+END_SRC
+
+*** Hydra
+    Modal-style fn / key-bind maps, haven't really explored the
+    possibilities of this one yet
+    #+BEGIN_SRC emacs-lisp tangle: yes
+  (use-package  hydra)
+    #+END_SRC
+
+**** TODO Explore hydra
+
+*** Helm
+    A generic fuzzy-matching interface to lots of sources. Can select
+    from buffers, tags, regexp matches etc. etc.
+    #+BEGIN_SRC emacs-lisp tangle: yes
+      (use-package helm
+        :bind (("M-x" .     helm-M-x)
+               ("C-x C-f" . helm-find-files)
+               ("C-x b" .   helm-buffers-list))
+        :demand)
+
+      ;; Extend helm project search to understand git
+      (use-package helm-ls-git
+        :after helm)
+
+      ;; Silver searcher search
+      (use-package helm-ag
+        :bind (("C-S-s" . helm-ag-project-root)))
+    #+END_SRC
+
+*** Eww
+    Use url as buffer name if page doesn't provide a title
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (defadvice eww-render (after set-eww-buffer-name activate)
+        (rename-buffer (concat "*eww-" (or eww-current-title
+                                           (if (string-match "://" eww-current-url)
+                                               (substring eww-current-url (match-beginning 0))
+                                             eww-current-url))
+                               "*") t))
+    #+END_SRC
+
+** Org
+*** Global key bindings
+    #+BEGIN_SRC emacs-lisp :tangle yes
+     (global-set-key "\C-cl" 'org-store-link)
+     (global-set-key "\C-ca" 'org-agenda)
+     (global-set-key "\C-cb" 'org-iswitchb)
+     (global-set-key "\C-cc" 'org-capture)
+    #+END_SRC
+
+*** Settings
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (setq org-agenda-files '("~/org/refile.org" "~/org/main.org"))
+      (setq org-completion-use-ido t)
+      (setq org-default-notes-file "~/org/refile.org")
+      (setq org-log-done 'time)
+      (setq org-outline-path-complete-in-steps nil)
+      (setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
+    #+END_SRC
+
+*** Use org-mode for org files
+    #+BEGIN_SRC emacs-lisp :tangle yes
+     (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))    
+    #+END_SRC
+
+*** Dired links
+    Create org links to dired directories
+    #+BEGIN_SRC emacs-lisp :tangle yes
+    (require 'org-dired-link)
+    #+END_SRC
+
+*** Org-Trello
+    Download/Upload trello boards as org files
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (add-to-list 'auto-mode-alist '("\\.trello$" . org-mode))
+      (use-package org-trello
+        :mode "\\.trello$"
+	:config (setq org-trello-current-prefix-keybinding "C-c o"))
+    #+END_SRC
+
+** Git
+   #+BEGIN_SRC emacs-lisp tangle: yes
+     (use-package git-commit)
+     (use-package magit
+       :commands magit-status)
+   #+END_SRC
+
+** Languages
+*** Lisp
+
+**** Paredit
+     Delightful semantic lisp editing and manipulation
+     #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package paredit)
+     #+END_SRC
+
+**** Common hooks
+     I like to have a common editing experience across all the
+     different lisp modes so here I declare a utility fn for setting
+     up mode hooks
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (defun my-settings/add-lisp-hooks (hooks)
+         "Add common lisp mode fns to HOOKS"
+         (my-settings/add-hooks hooks
+                                '(paredit-mode
+                                  rainbow-delimiters-mode
+                                  eldoc-mode)))
+     #+END_SRC     
+
+**** Emacs lisp
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (my-settings/add-lisp-hooks
+        '(emacs-lisp-mode-hook))
+     #+END_SRC
+
+**** Clojure
+
+***** clojure-mode
+      #+BEGIN_SRC emacs-lisp :tangle yes
+        (use-package clojure-mode
+          :mode (("\\(?:build\\|profile\\)\\.boot\\'" . clojure-mode)
+                 ("\\.cljs\\'" . clojurescript-mode)
+                 ("\\.cljx\\'" . clojurex-mode)
+                 ("\\.cljc\\'" . clojurec-mode)
+                 ("\\.\\(clj\\|dtm\\|edn\\)\\'" . clojure-mode))
+          :config (my-settings/add-lisp-hooks
+                   '(clojure-mode-hook
+                     clojurescript-mode-hook)))
+      #+END_SRC
+
+***** cider
+      Emacs ide for clojure development, see it's [[https://github.com/clojure-emacs/cider][github page]] for more
+      info
+      #+BEGIN_SRC emacs-lisp :tangle yes
+        (use-package cider
+          :after clojure-mode
+          :config (progn
+                    (setq nrepl-hide-special-buffers t)
+                    (setq cider-repl-pop-to-buffer-on-connect nil)
+                    (setq cider-show-error-buffer nil)
+                    (setq cider-repl-use-pretty-printing t)
+
+                    (my-settings/add-lisp-hooks
+                     '(cider-mode-hook
+                       cider-repl-mode-hook))))
+
+      #+END_SRC
+
+***** clj-refactor
+      Refactoring fns for clojure, requires nrepl middleware to fully
+      function.
+
+      Binds to 
+      #+BEGIN_SRC emacs-lisp :tangle yes
+        (use-package clj-refactor
+          :bind (:map clojure-mode-map
+                 ("C-c C-m" . hydra-cljr-help-menu/body)
+                 :map clojurescript-mode-map
+                 ("C-c C-m" . hydra-cljr-help-menu/body))
+          :config (progn
+                    (setq cljr-warn-on-eval nil)
+
+                    (my-settings/add-hooks
+                     '(clojure-mode-hook
+                       clojurescript-mode-hook)
+                     '((lambda () (yas-minor-mode 1))))))
+      #+END_SRC
+
+*** Haskell
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (use-package haskell-mode
+        :mode (("\\.hsc\\'" . haskell-mode)
+               ("\\.l[gh]s\\'" . literate-haskell-mode)
+               ("\\.[gh]s\\'" . haskell-mode)
+               ("\\.cabal\\'" . haskell-cabal-mode)
+               ("\\.chs\\'" . haskell-c2hs-mode)
+               ("\\.ghci\\'" . ghci-script-mode)
+               ("\\.dump-simpl\\'" . ghc-core-mode)
+               ("\\.hcr\\'" . ghc-core-mode)))
+    #+END_SRC
+
+*** Go
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (use-package go-mode
+        :mode "\\.go\\'")
+    #+END_SRC
+
+*** Ruby
+    #+BEGIN_SRC emacs-lisp tangle: yes
+      (use-package ruby-mode
+        :mode "\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'")
+    #+END_SRC
+
+*** Markup
+**** markdown
+     #+BEGIN_SRC emacs-lisp tangle: yes
+       (use-package markdown-mode
+         :mode (("\\.md\\'" . markdown-mode)
+                ("\\.text\\'" . markdown-mode)
+                ("\\.markdown\\'" . markdown-mode)))
+     #+END_SRC
+
+**** yaml
+     #+BEGIN_SRC emacs-lisp tangle: yes
+       (use-package yaml-mode
+         :mode "\\.e?ya?ml$")
+     #+END_SRC
+
+**** xml
+     Use nxml-mode for xml files
+     #+BEGIN_SRC emacs-lisp tangle: yes
+  (add-to-list 'auto-mode-alist '("\\.xml\\'" . nxml-mode))
+  (add-to-list 'auto-mode-alist '("\\.xslt\\'" . nxml-mode))
+     #+END_SRC
+     
+**** json
+     #+BEGIN_SRC emacs-lisp tangle: yes
+       (use-package json-mode
+         :mode (("\\.jsonld$" . json-mode)
+                ("\\.json$" . json-mode)))
+     #+END_SRC
+     
+*** java
+    #+BEGIN_SRC emacs-lisp tangle: yes
+          (use-package log4j-mode
+            :mode "\\.log\\'")
+    #+END_SRC
+
+*** CSS
+    CSS-eldoc attempts to provide inline doc look-ups for CSS files in
+    the same way eldoc does for lisp files.
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (require 'css-eldoc)
+      (my-settings/add-hooks
+       '(css-mode-hook)
+       '(rainbow-delimiters-mode
+         turn-on-css-eldoc))
+    #+END_SRC
+
+** Epilogue
+   Actions which need to be taken after other config
+
+*** Desktop
+    Remember what I've been doing between sessions
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (desktop-save-mode)
+      (desktop-read)
+    #+END_SRC
