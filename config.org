@@ -146,7 +146,16 @@
 **** multiple cursors
      Have multiple editing cursors at once, very useful when munging data.
      #+BEGIN_SRC emacs-lisp tangle: yes
-       (use-package multiple-cursors)
+       (use-package multiple-cursors
+         :commands (mc/edit-beginnings-of-lines mc/edit-ends-of-lines mc/edit-lines)
+         :functions hydra-multiple-cursors-menu/body
+         :init (progn
+                 (defhydra hydra-multiple-cursors-menu (:color blue)
+                   "multiple-cursors"
+                   ("a" mc/edit-beginnings-of-lines "edit beginnings")
+                   ("e" mc/edit-ends-of-lines "edit ends")
+                   ("c" mc/edit-lines "edit column")))
+         :bind ("C-c m" . hydra-multiple-cursors-menu/body))
      #+END_SRC
 
 **** expand region
