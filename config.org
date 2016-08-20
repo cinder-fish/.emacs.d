@@ -32,7 +32,7 @@
 
 ** Environment
 *** Encoding
-    Ensure always use utf-8
+    Always use utf-8
     #+BEGIN_SRC emacs-lisp tangle: yes
       (prefer-coding-system 'utf-8)
       (setq default-buffer-file-coding-system 'utf-8)
@@ -63,6 +63,9 @@
      #+END_SRC
 
 **** Resize frames to fill available space
+     Fixes an issue with some GUI environments where emacs resizes
+     it's frames in increments of font-size leaving gaps when
+     maximised
      #+BEGIN_SRC emacs-lisp tangle: yes
       (setq frame-resize-pixelwise t)
      #+END_SRC
@@ -79,14 +82,6 @@
       (add-to-list 'load-path site-lisp-dir)
       (let ((default-directory site-lisp-dir))
         (normal-top-level-add-subdirs-to-load-path))
-    #+END_SRC
-    
-*** TODO Load material theme
-    #+BEGIN_SRC emacs-lisp tangle: yes
-      (setq themes-dir (expand-file-name "themes"  user-emacs-directory))
-
-      (add-to-list 'custom-theme-load-path themes-dir)
-      (load-theme 'material t)
     #+END_SRC
 
 *** TODO vc make backups
@@ -109,6 +104,15 @@
         :config (exec-path-from-shell-initialize))
     #+END_SRC
     
+** Theme
+*** [[https://github.com/cpaulik/emacs-material-theme][Material theme]]
+    #+BEGIN_SRC emacs-lisp tangle: yes
+      (setq themes-dir (expand-file-name "themes"  user-emacs-directory))
+
+      (add-to-list 'custom-theme-load-path themes-dir)
+      (load-theme 'material t)
+    #+END_SRC
+
 ** Emacs tools / utilities
 *** Elisp Libraries
 **** dash
@@ -136,7 +140,7 @@
      #+END_SRC
 
 **** highlight matching delimiters
-     Highlight matching delimiters (, [, { etc. by colour and show the
+     Highlight matching delimiters =(=, =[=, ={= etc. by colour and show the
      current matching delimiter explicitly.
      #+BEGIN_SRC emacs-lisp tangle: yes
        (use-package rainbow-delimiters)
@@ -167,7 +171,7 @@
      #+END_SRC
      
 **** show possible keys
-     After a prefix chord is pressed show what possible further key
+     After a prefix is pressed show what possible further key
      combinations are available
      #+BEGIN_SRC emacs-lisp :tangle yes
        (use-package which-key)
@@ -197,7 +201,7 @@
      #+END_SRC
 
 **** Omit files
-     Omit '.', '..' auto-save, lock and temporary files
+     Omit '=.=', '=..=', auto-save, lock and temporary files when hiding in dired
      #+BEGIN_SRC emacs-lisp :tangle yes
        (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^#.*#$")
      #+END_SRC
@@ -217,7 +221,7 @@
 *** Buffer naming
     Change the default behaviour of appending '<2>' etc. to duplicate
     buffer names so that unique buffer names are instead derived from
-    the file name
+    expanding the file path
     #+BEGIN_SRC emacs-lisp tangle: yes
   (require 'uniquify)
   (setq uniquify-buffer-name-style 'forward)
@@ -244,18 +248,16 @@
               (sml/setup)))
     #+END_SRC
 
-*** Hydra
+*** TODO Hydra
     Modal-style fn / key-bind maps, haven't really explored the
     possibilities of this one yet
     #+BEGIN_SRC emacs-lisp tangle: yes
   (use-package  hydra)
     #+END_SRC
 
-**** TODO Explore hydra
-
 *** Helm
     A generic fuzzy-matching interface to lots of sources. Can select
-    from buffers, tags, regexp matches etc. etc.
+    from buffers, fns, tags, regexp matches etc. etc.
     #+BEGIN_SRC emacs-lisp tangle: yes
       (use-package helm
         :bind (("M-x" .     helm-M-x)
@@ -273,15 +275,16 @@
     #+END_SRC
 
 *** Eww
-    Use url as buffer name if page doesn't provide a title
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (defadvice eww-render (after set-eww-buffer-name activate)
-        (rename-buffer (concat "*eww-" (or eww-current-title
-                                           (if (string-match "://" eww-current-url)
-                                               (substring eww-current-url (match-beginning 0))
-                                             eww-current-url))
-                               "*") t))
-    #+END_SRC
+**** Title advice
+     Use url as buffer name if page doesn't provide a title
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (defadvice eww-render (after set-eww-buffer-name activate)
+         (rename-buffer (concat "*eww-" (or eww-current-title
+                                            (if (string-match "://" eww-current-url)
+                                                (substring eww-current-url (match-beginning 0))
+                                              eww-current-url))
+                                "*") t))
+     #+END_SRC
 
 ** Org
 *** Global key bindings
@@ -322,7 +325,9 @@
 	:config (setq org-trello-current-prefix-keybinding "C-c o"))
     #+END_SRC
 
-** Git
+** Magit
+   Effective and very complete UI for git commit and history
+   manipulation. Always my go-to for interacting with git
    #+BEGIN_SRC emacs-lisp tangle: yes
      (use-package git-commit)
      (use-package magit
@@ -339,9 +344,8 @@
      #+END_SRC
 
 **** Common hooks
-     I like to have a common editing experience across all the
-     different lisp modes so here I declare a utility fn for setting
-     up mode hooks
+     I like to have a common editing experience across lisp modes, so
+     here I declare a utility fn for setting up mode hooks
      #+BEGIN_SRC emacs-lisp :tangle yes
        (defun my-settings/add-lisp-hooks (hooks)
          "Add common lisp mode fns to HOOKS"
@@ -393,8 +397,6 @@
 ***** clj-refactor
       Refactoring fns for clojure, requires nrepl middleware to fully
       function.
-
-      Binds to 
       #+BEGIN_SRC emacs-lisp :tangle yes
         (use-package clj-refactor
           :bind (:map clojure-mode-map
@@ -435,7 +437,7 @@
         :mode "\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'")
     #+END_SRC
 
-*** Markup
+*** Markup Languages
 **** markdown
      #+BEGIN_SRC emacs-lisp tangle: yes
        (use-package markdown-mode
