@@ -13,3 +13,6 @@
 [submodule "site-lisp/vendored/css-eldoc"]
 	path = site-lisp/vendored/css-eldoc
 	url = https://github.com/zenozeng/css-eldoc.git
+[submodule "site-lisp/vendored/omnisharp-emacs"]
+	path = site-lisp/vendored/omnisharp-emacs
+	url = git@github.com:hottrout/omnisharp-emacs.git

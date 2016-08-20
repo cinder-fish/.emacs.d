@@ -472,6 +472,44 @@
          turn-on-css-eldoc))
     #+END_SRC
 
+*** CSharp
+    Configured to use [[https://github.com/OmniSharp/omnisharp-roslyn][Omnisharp server]] for providing ide features
+
+    [[https://github.com/OmniSharp/omnisharp-emacs][omnisharp-emacs]] plugs into flycheck, eldoc and company and
+    provides access to refactoring fns.
+
+    Also using my own [[*Hydra][Hydra]] as a menu for the non-automatic features.
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (use-package flycheck)
+
+      (use-package csharp-mode
+        :mode "\\.cs$"
+        :functions hydra-csharp-menu/body
+        :bind (:map csharp-mode-map
+                    ("C-c C-c" . hydra-csharp-menu/body))
+        :config (progn
+                  (add-to-list 'load-path (expand-file-name "vendored/omnisharp-emacs" site-lisp-dir))
+                  (require 'omnisharp)
+
+                  (defhydra hydra-csharp-menu (:color blue)
+                    "CSharp Editing Action:\n"
+                    ("r" omnisharp-rename-interactively "rename")
+                    ("R" omnisharp-run-code-action-refactoring "refactor")
+                    ("f" omnisharp-helm-find-symbols "find symbol")
+                    ("u" omnisharp-helm-find-usages "find usages")
+                    ("F" omnisharp-fix-usings "fix usings"))
+
+                  (eval-after-load 'company
+                    '(add-to-list 'company-backends 'company-omnisharp))
+
+                  (my-settings/add-hooks
+                   '(csharp-mode-hook)
+                   '(omnisharp-mode
+                     flycheck-mode
+                     eldoc-mode
+                     rainbow-delimiters-mode))))
+    #+END_SRC
+
 ** Epilogue
    Actions which need to be taken after other config
 
