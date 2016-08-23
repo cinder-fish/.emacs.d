@@ -125,6 +125,13 @@
 (use-package request)
      #+END_SRC
 
+**** TODO Hydra
+     Modal-style fn / key-bind maps, haven't really explored the
+     possibilities of this one yet
+     #+BEGIN_SRC emacs-lisp tangle: yes
+   (use-package  hydra)
+     #+END_SRC
+
 *** Auto-completion
     Use company for global auto-completion.
     #+BEGIN_SRC emacs-lisp tangle: yes
@@ -246,13 +253,6 @@
                       sml/pre-modes-separator mode-line-modes mode-line-misc-info mode-line-end-spaces)))
               
               (sml/setup)))
-    #+END_SRC
-
-*** TODO Hydra
-    Modal-style fn / key-bind maps, haven't really explored the
-    possibilities of this one yet
-    #+BEGIN_SRC emacs-lisp tangle: yes
-  (use-package  hydra)
     #+END_SRC
 
 *** Helm
