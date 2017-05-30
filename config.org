@@ -260,9 +260,10 @@
     from buffers, fns, tags, regexp matches etc. etc.
     #+BEGIN_SRC emacs-lisp tangle: yes
       (use-package helm
-        :bind (("M-x" .     helm-M-x)
+        :bind (("M-x"     . helm-M-x)
                ("C-x C-f" . helm-find-files)
-               ("C-x b" .   helm-buffers-list))
+               ("C-x C-p" . helm-browse-project)
+               ("C-x b"   . helm-buffers-list))
         :demand)
 
       ;; Extend helm project search to understand git
