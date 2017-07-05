@@ -116,18 +116,17 @@
 ** Emacs tools / utilities
 *** Elisp Libraries
 **** dash
-     Modern composable list api, I use it so much it's actually
-     already loaded in order to execute this file
+     Modern composable list api, it's actually already loaded in order
+     to execute this file
 
 **** request
-     Handy http lib, very useful for prototyping
+     Handy http lib
      #+BEGIN_SRC emacs-lisp :tangle yes
 (use-package request)
      #+END_SRC
 
 **** TODO Hydra
-     Modal-style fn / key-bind maps, haven't really explored the
-     possibilities of this one yet
+     Modal-style fn / key-bind maps
      #+BEGIN_SRC emacs-lisp :tangle yes
    (use-package  hydra)
      #+END_SRC
@@ -155,7 +154,7 @@
      #+END_SRC
 
 **** multiple cursors
-     Have multiple editing cursors at once, very useful when munging data.
+     Have multiple editing cursors at once
      #+BEGIN_SRC emacs-lisp :tangle yes
        (use-package multiple-cursors
          :commands (mc/edit-beginnings-of-lines mc/edit-ends-of-lines mc/edit-lines)
@@ -170,8 +169,7 @@
      #+END_SRC
 
 **** expand region
-     Expand a region selection by the next-most semantic boundary, kind
-     of like double-clicking
+     (Modally) Expand a region selection by the next-most semantic boundary
      #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package expand-region
     :bind (("C-=" . er/expand-region)))
@@ -185,8 +183,8 @@
      #+END_SRC
 
 **** use prelude move to beginning of line
-     I quite like skipping to the first non-whitespace character on a
-     line so include this fn from [[https://github.com/bbatsov/prelude][Emacs Prelude]]
+     Copied from [[https://github.com/bbatsov/prelude][Emacs Prelude]], toggles between moving to line
+     beginning and first non-whitespace character
      #+BEGIN_SRC emacs-lisp :tangle yes
 (require 'prelude-move-beginning-of-line)
 (global-set-key [remap move-beginning-of-line]
@@ -227,8 +225,7 @@
 
 *** Buffer naming
     Change the default behaviour of appending '<2>' etc. to duplicate
-    buffer names so that unique buffer names are instead derived from
-    expanding the file path
+    buffer names to instead derive a new name by expanding the file path
     #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'uniquify)
   (setq uniquify-buffer-name-style 'forward)
@@ -555,7 +552,7 @@
                     (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji")
                                       frame 'prepend)))
 
-        ;; el-capitan has visual glitches with visible-bell
+        ;; macos has visual glitches with visible-bell
 
         (setq visible-bell nil)
         (setq ring-bell-function (lambda ()
