@@ -5,7 +5,7 @@
    Configuration required by the rest of this file
 
 *** use-package
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
   (unless (package-installed-p 'use-package)
     (package-install 'use-package))
   (setq use-package-verbose t)
@@ -33,32 +33,32 @@
 ** Environment
 *** Encoding
     Always use utf-8
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
       (prefer-coding-system 'utf-8)
       (setq default-buffer-file-coding-system 'utf-8)
     #+end_src
     
 *** Inhibit startup message
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
       (setq inhibit-startup-message t)
     #+END_SRC
     
 *** GC Threshold
     Allow higher memory usage
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
       (setq gc-cons-threshold 20000000)
     #+END_SRC
 
 *** Frame decoration / behaviour
 **** Hide window decorations
-     #+BEGIN_SRC emacs-lisp tangle: yes
+     #+BEGIN_SRC emacs-lisp :tangle yes
       (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
       (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
       (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
      #+END_SRC
 
 **** Use visible bell
-     #+BEGIN_SRC emacs-lisp tangle: yes
+     #+BEGIN_SRC emacs-lisp :tangle yes
       (setq visible-bell t)
      #+END_SRC
 
@@ -66,17 +66,17 @@
      Fixes an issue with some GUI environments where emacs resizes
      it's frames in increments of font-size leaving gaps when
      maximised
-     #+BEGIN_SRC emacs-lisp tangle: yes
+     #+BEGIN_SRC emacs-lisp :tangle yes
       (setq frame-resize-pixelwise t)
      #+END_SRC
 
 **** Fringes
-     #+BEGIN_SRC emacs-lisp tangle: yes
+     #+BEGIN_SRC emacs-lisp :tangle yes
     (fringe-mode 10)
      #+END_SRC
 
 *** TODO Add site-lisp to 'load-path
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
       (setq site-lisp-dir (expand-file-name "site-lisp" user-emacs-directory))
 
       (add-to-list 'load-path site-lisp-dir)
@@ -85,13 +85,13 @@
     #+END_SRC
 
 *** TODO vc make backups
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
     (setq vc-make-backup-files t)
     #+END_SRC
 
 *** Run Emacs server
     Run an emacs server if not already started
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
   (unless (boundp 'server-process)
     (server-start))
     #+END_SRC
@@ -106,7 +106,7 @@
     
 ** Theme
 *** [[https://github.com/cpaulik/emacs-material-theme][Material theme]]
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
       (setq themes-dir (expand-file-name "themes"  user-emacs-directory))
 
       (add-to-list 'custom-theme-load-path themes-dir)
@@ -128,13 +128,13 @@
 **** TODO Hydra
      Modal-style fn / key-bind maps, haven't really explored the
      possibilities of this one yet
-     #+BEGIN_SRC emacs-lisp tangle: yes
+     #+BEGIN_SRC emacs-lisp :tangle yes
    (use-package  hydra)
      #+END_SRC
 
 *** Auto-completion
     Use company for global auto-completion.
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package company
     :config (global-company-mode))
     #+END_SRC
@@ -149,14 +149,14 @@
 **** highlight matching delimiters
      Highlight matching delimiters =(=, =[=, ={= etc. by colour and show the
      current matching delimiter explicitly.
-     #+BEGIN_SRC emacs-lisp tangle: yes
+     #+BEGIN_SRC emacs-lisp :tangle yes
        (use-package rainbow-delimiters)
        (show-paren-mode)
      #+END_SRC
 
 **** multiple cursors
      Have multiple editing cursors at once, very useful when munging data.
-     #+BEGIN_SRC emacs-lisp tangle: yes
+     #+BEGIN_SRC emacs-lisp :tangle yes
        (use-package multiple-cursors
          :commands (mc/edit-beginnings-of-lines mc/edit-ends-of-lines mc/edit-lines)
          :functions hydra-multiple-cursors-menu/body
@@ -172,7 +172,7 @@
 **** expand region
      Expand a region selection by the next-most semantic boundary, kind
      of like double-clicking
-     #+BEGIN_SRC emacs-lisp tangle: yes
+     #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package expand-region
     :bind (("C-=" . er/expand-region)))
      #+END_SRC
@@ -215,7 +215,7 @@
      
 *** Minibuffer selections
     Use fuzzy matching when making selections in the mini buffer
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package ido-ubiquitous)
   (use-package flx-ido
     :config (progn
@@ -229,14 +229,14 @@
     Change the default behaviour of appending '<2>' etc. to duplicate
     buffer names so that unique buffer names are instead derived from
     expanding the file path
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'uniquify)
   (setq uniquify-buffer-name-style 'forward)
     #+END_SRC
 
 *** Mode-line
     Use a neater, more compact mode-line
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package smart-mode-line
     :config (progn
               (display-time-mode 1)
@@ -258,7 +258,7 @@
 *** Helm
     A generic fuzzy-matching interface to lots of sources. Can select
     from buffers, fns, tags, regexp matches etc. etc.
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
       (use-package helm
         :bind (("M-x"     . helm-M-x)
                ("C-x C-f" . helm-find-files)
@@ -329,7 +329,7 @@
 ** Magit
    Effective and very complete UI for git commit and history
    manipulation. Always my go-to for interacting with git
-   #+BEGIN_SRC emacs-lisp tangle: yes
+   #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package git-commit)
      (use-package magit
        :commands magit-status)
@@ -433,14 +433,14 @@
     #+END_SRC
 
 *** Ruby
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
       (use-package ruby-mode
         :mode "\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'")
     #+END_SRC
 
 *** Markup Languages
 **** markdown
-     #+BEGIN_SRC emacs-lisp tangle: yes
+     #+BEGIN_SRC emacs-lisp :tangle yes
        (use-package markdown-mode
          :mode (("\\.md\\'" . markdown-mode)
                 ("\\.text\\'" . markdown-mode)
@@ -448,27 +448,27 @@
      #+END_SRC
 
 **** yaml
-     #+BEGIN_SRC emacs-lisp tangle: yes
+     #+BEGIN_SRC emacs-lisp :tangle yes
        (use-package yaml-mode
          :mode "\\.e?ya?ml$")
      #+END_SRC
 
 **** xml
      Use nxml-mode for xml files
-     #+BEGIN_SRC emacs-lisp tangle: yes
+     #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'auto-mode-alist '("\\.xml\\'" . nxml-mode))
   (add-to-list 'auto-mode-alist '("\\.xslt\\'" . nxml-mode))
      #+END_SRC
      
 **** json
-     #+BEGIN_SRC emacs-lisp tangle: yes
+     #+BEGIN_SRC emacs-lisp :tangle yes
        (use-package json-mode
          :mode (("\\.jsonld$" . json-mode)
                 ("\\.json$" . json-mode)))
      #+END_SRC
      
 *** java
-    #+BEGIN_SRC emacs-lisp tangle: yes
+    #+BEGIN_SRC emacs-lisp :tangle yes
           (use-package log4j-mode
             :mode "\\.log\\'")
     #+END_SRC
