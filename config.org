@@ -488,17 +488,6 @@
             :mode "\\.log\\'")
     #+END_SRC
 
-*** CSS
-    CSS-eldoc attempts to provide inline doc look-ups for CSS files in
-    the same way eldoc does for lisp files.
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (require 'css-eldoc)
-      (my-settings/add-hooks
-       '(css-mode-hook)
-       '(rainbow-delimiters-mode
-         turn-on-css-eldoc))
-    #+END_SRC
-
 *** CSharp
     Configured to use [[https://github.com/OmniSharp/omnisharp-roslyn][Omnisharp server]] for providing ide features
 

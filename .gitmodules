@@ -10,9 +10,6 @@
 [submodule "site-lisp/vendored/mongo-el"]
 	path = site-lisp/vendored/mongo-el
 	url = https://github.com/m2ym/mongo-el.git
-[submodule "site-lisp/vendored/css-eldoc"]
-	path = site-lisp/vendored/css-eldoc
-	url = https://github.com/zenozeng/css-eldoc.git
 [submodule "site-lisp/vendored/omnisharp-emacs"]
 	path = site-lisp/vendored/omnisharp-emacs
 	url = https://github.com/hottrout/omnisharp-emacs.git
