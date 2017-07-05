@@ -295,17 +295,35 @@
 
 *** Settings
     #+BEGIN_SRC emacs-lisp :tangle yes
-      (setq org-agenda-files '("~/org/refile.org" "~/org/main.org"))
-      (setq org-completion-use-ido t)
-      (setq org-default-notes-file "~/org/refile.org")
-      (setq org-log-done 'time)
-      (setq org-outline-path-complete-in-steps nil)
-      (setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
-    #+END_SRC
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '((emacs-lisp . t)))
 
-*** Use org-mode for org files
-    #+BEGIN_SRC emacs-lisp :tangle yes
-     (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))    
+      (defun my-settings/gtd-file (name)
+        "Resolve the location of gtd org file NAME"
+        (let ((gtd-dir (expand-file-name "gtd" user-emacs-directory)))
+          (expand-file-name name gtd-dir)))
+
+      (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+
+      (let ((active  (my-settings/gtd-file "active.org"))
+            (inbox   (my-settings/gtd-file "inbox.org"))
+            (someday (my-settings/gtd-file "someday.org")))
+        (setq org-agenda-files (list active))
+        (setq org-default-notes-file nil)
+        (setq org-completion-use-ido nil)
+        (setq org-log-done nil)
+        (setq org-outline-path-complete-in-steps nil)
+        (setq org-refile-targets `((,active  :regexp . "Actions")
+                                   (,active  :regexp . "Projects")
+                                   (,active  :regexp . "Done")
+                                   (,someday :maxlevel . 9)))
+        (setq org-refile-use-outline-path t)
+        (setq org-outline-path-complete-in-steps nil)
+        (setq org-capture-templates (list
+                                   `("i" "Idea for later review" entry (file ,inbox) "* %?")
+                                   `("a" "A new action" entry (file+headline ,active "Actions") "* %? %^g")
+                                   `("p" "A new project" entry (file+headline ,active "Projects") "* %?"))))
     #+END_SRC
 
 *** Dired links
