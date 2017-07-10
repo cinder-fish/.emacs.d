@@ -6,6 +6,11 @@
 ** Preamble
    Configuration required by the rest of this file
 
+*** don't write-out selected packages
+    #+BEGIN_SRC emacs-lisp
+      (defun package--save-selected-packages (&rest opt) nil)
+    #+END_SRC
+
 *** use-package
     #+BEGIN_SRC emacs-lisp
   (unless (package-installed-p 'use-package)
