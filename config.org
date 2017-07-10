@@ -268,6 +268,8 @@
                ("C-x C-f" . helm-find-files)
                ("C-x C-p" . helm-browse-project)
                ("C-x b"   . helm-buffers-list))
+        :config (progn
+                  (helm-mode t))
         :demand)
 
       ;; Extend helm project search to understand git
