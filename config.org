@@ -492,7 +492,8 @@
                       sgml-skip-tag-forward
                       nil))
        (add-hook 'nxml-mode-hook 'hs-minor-mode)
-       (define-key nxml-mode-map (kbd "C-c h") 'hs-toggle-hiding)
+       (eval-after-load 'nxml-mode
+         '(define-key nxml-mode-map (kbd "C-c h") 'hs-toggle-hiding))
      #+END_SRC
      
 **** json
