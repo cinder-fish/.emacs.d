@@ -111,6 +111,11 @@
         :config (exec-path-from-shell-initialize))
     #+END_SRC
     
+*** Show number of matches during i-search
+    #+BEGIN_SRC emacs-lisp
+      (use-package anzu
+        :config (global-anzu-mode +1))
+    #+END_SRC
 ** Theme
 *** [[https://github.com/cpaulik/emacs-material-theme][Material theme]]
     #+BEGIN_SRC emacs-lisp
