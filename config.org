@@ -286,6 +286,11 @@
         :bind (("C-S-s" . helm-ag-project-root)))
     #+END_SRC
 
+*** Ediff
+    Use single-frame setup
+     #+BEGIN_SRC emacs-lisp
+       (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+     #+END_SRC
 *** Eww
 **** Title advice
      Use url as buffer name if page doesn't provide a title
