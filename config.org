@@ -146,8 +146,10 @@
 *** Auto-completion
     Use company for global auto-completion.
     #+BEGIN_SRC emacs-lisp
-  (use-package company
-    :config (global-company-mode))
+      (use-package company
+        :config (progn
+                  (setq company-dabbrev-downcase nil)
+                  global-company-mode))
     #+END_SRC
 
 *** Editing
