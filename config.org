@@ -116,6 +116,10 @@
       (use-package anzu
         :config (global-anzu-mode +1))
     #+END_SRC
+*** Pop `shell` into current window
+    #+BEGIN_SRC emacs-lisp
+      (push (cons "\\*shell\\*" display-buffer--same-window-action) display-buffer-alist)
+    #+END_SRC
 ** Theme
 *** [[https://github.com/cpaulik/emacs-material-theme][Material theme]]
     #+BEGIN_SRC emacs-lisp
