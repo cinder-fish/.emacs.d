@@ -371,7 +371,7 @@
        :commands magit-status)
    #+END_SRC
 
-** Languages
+** Languages / Smaller Tools
 *** Lisp
 
 **** Paredit
@@ -569,6 +569,11 @@
                       (company-terraform-init)))
     #+END_SRC
 
+*** Kubernetes
+    #+BEGIN_SRC emacs-lisp
+      (use-package kubernetes
+        :commands (kubernetes-overview))
+    #+END_SRC
 ** OSX
    Some specific configuration when running on OSX
 
