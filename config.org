@@ -559,6 +559,16 @@
                      rainbow-delimiters-mode))))
     #+END_SRC
 
+*** Terraform
+    #+BEGIN_SRC emacs-lisp
+          (use-package terraform-mode
+            :mode "\\.tf$")
+
+          (use-package company-terraform
+            :config (progn
+                      (company-terraform-init)))
+    #+END_SRC
+
 ** OSX
    Some specific configuration when running on OSX
 
