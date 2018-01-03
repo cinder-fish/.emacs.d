@@ -397,6 +397,7 @@
    manipulation. Always my go-to for interacting with git
    #+BEGIN_SRC emacs-lisp
      (use-package git-commit)
+     (use-package orgit)
      (use-package magit
        :commands magit-status)
    #+END_SRC
