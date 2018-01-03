@@ -252,22 +252,48 @@
 *** Mode-line
     Use a neater, more compact mode-line
     #+BEGIN_SRC emacs-lisp
-  (use-package smart-mode-line
-    :config (progn
-              (display-time-mode 1)
-              (column-number-mode 1)
+      (use-package smart-mode-line
+        :config (progn
+                  (setq display-time-default-load-average nil)
+                  (display-time-mode 1)
 
-              (setq sml/name-width (quote (10 . 44)))
-              (setq sml/shorten-directory t)
-              (setq sml/theme (quote respectful))
+                  (column-number-mode 1)
 
-              (setq mode-line-format
-                    (quote
-                     ("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification " " mode-line-buffer-identification sml/pos-id-separator mode-line-position
-                      (vc-mode vc-mode)
-                      sml/pre-modes-separator mode-line-modes mode-line-misc-info mode-line-end-spaces)))
-              
-              (sml/setup)))
+                  (setq sml/name-width (quote (10 . 44)))
+                  (setq sml/shorten-directory t)
+                  (setq sml/replacer-regexp-list '())
+                  (setq sml/shorten-modes t)
+
+                  (setq sml/theme (quote respectful))
+
+                  (setq rm-blacklist nil)
+                  (let* ((whitelisted-modes '("Ovwrt"))
+                         (combined-regexp   (mapconcat 'identity whitelisted-modes "\\|")))
+                    (setq rm-whitelist combined-regexp))
+                  (setq rm-text-properties '(("\\` Ovwrt\\'" 'face 'font-lock-warning-face)))
+
+                  (setq mode-line-format
+                        (quote
+                         ("%e" ;; print error message about full memory
+                          mode-line-front-space
+                          sml/pos-id-separator
+                          ""
+                          mode-line-position
+                          ""
+                          mode-line-mule-info
+                          mode-line-client
+                          mode-line-modified
+                          mode-line-remote
+                          mode-line-frame-identification
+                          " "
+                          mode-line-buffer-identification
+                          ""
+                          (vc-mode vc-mode)
+                          sml/pre-modes-separator
+                          mode-line-modes
+                          mode-line-misc-info
+                          mode-line-end-spaces)))
+                  (sml/setup)))
     #+END_SRC
 
 *** Helm
