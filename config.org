@@ -216,6 +216,12 @@
 (move-lines-binding)
      #+END_SRC
 
+**** editor config
+    #+BEGIN_SRC emacs-lisp
+      (use-package editorconfig
+        :demand)
+    #+END_SRC
+
 *** Dired
 **** Dired+    
      Extension fns for dired
