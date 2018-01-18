@@ -325,9 +325,20 @@
     #+END_SRC
 
 *** Ediff
-    Use single-frame setup
+    Use single-frame setup and restore previous window configuration on quit
      #+BEGIN_SRC emacs-lisp
        (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+       (defvar my-ediff-last-windows nil)
+
+       (defun my-store-pre-ediff-winconfig ()
+         (setq my-ediff-last-windows (current-window-configuration)))
+
+       (defun my-restore-pre-ediff-winconfig ()
+         (set-window-configuration my-ediff-last-windows))
+
+       (add-hook 'ediff-before-setup-hook #'my-store-pre-ediff-winconfig)
+       (add-hook 'ediff-quit-hook #'my-restore-pre-ediff-winconfig)
      #+END_SRC
 *** Eww
 **** Title advice
