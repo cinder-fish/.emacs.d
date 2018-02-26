@@ -13,3 +13,6 @@
 [submodule "site-lisp/vendored/omnisharp-emacs"]
 	path = site-lisp/vendored/omnisharp-emacs
 	url = https://github.com/hottrout/omnisharp-emacs.git
+[submodule "site-lisp/vendored/restclient.el"]
+	path = site-lisp/vendored/restclient.el
+	url = https://github.com/pashky/restclient.el.git

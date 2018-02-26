@@ -351,7 +351,11 @@
                                               eww-current-url))
                                 "*") t))
      #+END_SRC
-
+** Restclient
+*** Mode
+    #+BEGIN_SRC emacs-lisp
+      (require 'restclient (expand-file-name "vendored/restclient.el/restclient.el" site-lisp-dir))
+    #+END_SRC
 ** Org
 *** Global key bindings
     #+BEGIN_SRC emacs-lisp
