@@ -120,6 +120,10 @@
     #+BEGIN_SRC emacs-lisp
       (push (cons "\\*shell\\*" display-buffer--same-window-action) display-buffer-alist)
     #+END_SRC
+*** Disable disabled functions
+    #+BEGIN_SRC emacs-lisp
+      (setq disabled-command-function nil)
+    #+END_SRC
 ** Theme
 *** [[https://github.com/cpaulik/emacs-material-theme][Material theme]]
     #+BEGIN_SRC emacs-lisp
