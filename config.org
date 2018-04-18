@@ -569,6 +569,8 @@
        (use-package json-mode
          :mode (("\\.jsonld$" . json-mode)
                 ("\\.json$" . json-mode)))
+
+       (use-package jq-mode)
      #+END_SRC
      
 *** java
