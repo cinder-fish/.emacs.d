@@ -399,7 +399,9 @@
         (setq org-capture-templates (list
                                    `("i" "Idea for later review" entry (file ,inbox) "* %?")
                                    `("a" "A new action" entry (file+headline ,active "Actions") "* %? %^g")
-                                   `("p" "A new project" entry (file+headline ,active "Projects") "* %?"))))
+                                   `("p" "A new project" entry (file+headline ,active "Projects") "* %?")))
+        (setq org-export-with-toc nil)
+        (setq org-export-backends '(ascii html icalendar latex md odt)))
     #+END_SRC
 
 *** Dired links
