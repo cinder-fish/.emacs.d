@@ -133,6 +133,12 @@
       (load-theme 'material t)
     #+END_SRC
 
+*** Mac options
+    #+BEGIN_SRC emacs-lisp
+      (when (eq system-type 'darwin)
+        (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+        (setq frame-title-format nil))
+    #+END_SRC
 ** Emacs tools / utilities
 *** Elisp Libraries
 **** dash
