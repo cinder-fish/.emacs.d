@@ -626,6 +626,15 @@
                      rainbow-delimiters-mode))))
     #+END_SRC
 
+*** Docker
+    #+BEGIN_SRC emacs-lisp
+      (use-package dockerfile-mode
+        :mode "Dockerfile\\'")
+
+      (use-package docker-compose-mode
+        :mode "docker-compose[^/]*\\.yml\\'")
+    #+END_SRC
+
 *** Terraform
     #+BEGIN_SRC emacs-lisp
           (use-package terraform-mode
