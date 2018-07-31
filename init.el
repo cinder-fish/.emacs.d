@@ -3,9 +3,14 @@
 ;; defer package control to config
 (setq package-enable-at-startup nil)
 
-;; backup to folder in .emacs.d
+;; backup to folders in .emacs.d
 (setq backup-directory-alist
       `(("." . ,(expand-file-name (concat user-emacs-directory "backups")))))
+(let ((autosave-directory
+       (expand-file-name (concat user-emacs-directory "autosaves"))))
+  (make-directory autosave-directory t)
+  (setq auto-save-file-name-transforms
+        `((".*" ,(concat autosave-directory "/\\1") t))))
 
 ;; customize variables in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
