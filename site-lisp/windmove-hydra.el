@@ -1,0 +1,20 @@
+(defhydra hydra-windmove (global-map "C-o"
+                                     :hint nil)
+  "window selection"
+  ("h" windmove-left "←")
+  ("C-h" windmove-left "←")
+  ("j" windmove-down "↓")
+  ("C-j" windmove-down "↓")
+  ("k" windmove-up "↑")
+  ("C-k" windmove-up "↑")
+  ("l" windmove-right "→")
+  ("C-l" windmove-right "→")
+  ("H" shrink-window-horizontally "!↔")
+  ("J" enlarge-window "↕")
+  ("K" shrink-window "!↕")
+  ("L" enlarge-window-horizontally "↔")
+  ("q" delete-window "×")
+  ("Q" kill-buffer-and-window "☠")
+  ("b" helm-buffers-list "buffers"))
+
+(provide 'windmove-hydra)

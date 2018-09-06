@@ -246,6 +246,12 @@
         :demand)
     #+END_SRC
 
+**** window selection
+    #+BEGIN_SRC emacs-lisp
+      (use-package windmove-hydra
+        :after hydra
+        :load-path "site-lisp")
+    #+END_SRC
 *** Dired
 **** Dired+    
      Extension fns for dired
