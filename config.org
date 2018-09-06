@@ -369,6 +369,14 @@
                                               eww-current-url))
                                 "*") t))
      #+END_SRC
+*** emojify
+     #+BEGIN_SRC emacs-lisp
+       (use-package emojify
+         :ensure t
+         :config
+         (emojify-set-emoji-styles '(unicode))
+         (global-emojify-mode))
+     #+END_SRC
 ** Restclient
 *** Mode
     #+BEGIN_SRC emacs-lisp
