@@ -419,11 +419,15 @@
         (setq org-refile-use-outline-path t)
         (setq org-outline-path-complete-in-steps nil)
         (setq org-capture-templates (list
-                                   `("i" "Idea for later review" entry (file ,inbox) "* %?")
-                                   `("a" "A new action" entry (file+headline ,active "Actions") "* %? %^g")
-                                   `("p" "A new project" entry (file+headline ,active "Projects") "* %?")))
+                                     `("i" "Idea for later review" entry (file ,inbox) "* %?")
+                                     `("a" "A new action" entry (file+headline ,active "Actions") "* %? %^g")
+                                     `("p" "A new project" entry (file+headline ,active "Projects") "* %?")))
         (setq org-export-with-toc nil)
-        (setq org-export-backends '(ascii html icalendar latex md odt)))
+        (setq org-export-backends '(ascii html icalendar latex md odt))
+
+        ;; export github-flavoured markdown
+        (use-package ox-gfm
+          :config (add-to-list 'org-export-backends 'gfm)))
     #+END_SRC
 
 *** Dired links
