@@ -614,7 +614,8 @@
          :mode "\\.ts$")
 
        (use-package tide
-         :hook (typescript-mode . tide-setup))
+         :hook ((typescript-mode . tide-setup)
+                (typescript-mode . flycheck-mode)))
 
        (use-package grunt
          :init (setq grunt-base-command "./node_modules/.bin/grunt")
