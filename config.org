@@ -426,6 +426,22 @@
 	:config (setq org-trello-current-prefix-keybinding "C-c o"))
     #+END_SRC
 
+*** Babel
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((dot . t)
+     (emacs-lisp . t)))
+
+  (setq org-confirm-babel-evaluate (lambda (lang body)
+                                     (not (string= lang "dot"))))
+
+  (add-hook 'org-babel-after-execute-hook (lambda ()
+                                            (when org-inline-image-overlays
+                                              (org-redisplay-inline-images))))
+
+#+END_SRC
+
 ** Magit
    Effective and very complete UI for git commit and history
    manipulation. Always my go-to for interacting with git
