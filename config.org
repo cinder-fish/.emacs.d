@@ -342,6 +342,14 @@
                                               eww-current-url))
                                 "*") t))
      #+END_SRC
+*** Neotree
+     #+BEGIN_SRC emacs-lisp
+       (use-package neotree
+         :after (all-the-icons)
+         :config
+         (setq neo-autorefresh nil)
+         (setq neo-theme 'icons))
+     #+END_SRC
 *** emojify
      #+BEGIN_SRC emacs-lisp
        (use-package emojify
