@@ -252,6 +252,14 @@
         :after hydra
         :load-path "site-lisp")
     #+END_SRC
+
+**** hide mode-line
+    #+BEGIN_SRC emacs-lisp
+      (use-package hidden-mode-line-mode
+        :bind ("C-c m" . hidden-mode-line-mode)
+        :load-path "site-lisp")
+    #+END_SRC
+
 *** Dired
 **** Dired+    
      Extension fns for dired
