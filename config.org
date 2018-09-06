@@ -91,9 +91,15 @@
         (normal-top-level-add-subdirs-to-load-path))
     #+END_SRC
 
-*** TODO vc make backups
+*** Backups / temporary files
     #+BEGIN_SRC emacs-lisp
-    (setq vc-make-backup-files t)
+      ;; ensure backups are still created if vc detected
+      (setq vc-make-backup-files t)
+
+      ;; see init.el for backups / autosaves config
+
+      ;; don't write lockfiles
+      (setq create-lockfiles nil)
     #+END_SRC
 
 *** Run Emacs server
