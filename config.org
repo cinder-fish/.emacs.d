@@ -256,13 +256,17 @@
 *** Minibuffer selections
     Use fuzzy matching when making selections in the mini buffer
     #+BEGIN_SRC emacs-lisp
-  (use-package ido-ubiquitous)
-  (use-package flx-ido
-    :config (progn
-              (ido-mode 1)
-              (ido-everywhere 1)
-              (flx-ido-mode 1)
-              (setq ido-use-faces nil)))
+      (use-package ido-completing-read+)
+
+      (use-package flx-ido
+        :after (ido-completing-read+)
+        :ensure t
+        :config (progn
+                  (ido-mode 1)
+                  (ido-everywhere 1)
+                  (ido-ubiquitous-mode)
+                  (flx-ido-mode 1)
+                  (setq ido-use-faces nil)))
     #+END_SRC
 
 *** Buffer naming
