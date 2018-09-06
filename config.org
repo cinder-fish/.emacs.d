@@ -628,6 +628,12 @@
             :mode "\\.log\\'")
     #+END_SRC
 
+*** golang
+    #+BEGIN_SRC emacs-lisp
+      (use-package go-mode
+        :mode "\\.go\\'")
+    #+END_SRC
+
 *** CSharp
     Configured to use [[https://github.com/OmniSharp/omnisharp-roslyn][Omnisharp server]] for providing ide features
 
