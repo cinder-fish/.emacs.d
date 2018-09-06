@@ -594,6 +594,16 @@
        (use-package indium
          :commands (indium-run-node)
          :hook (js2-mode . indium-interaction-mode))
+
+       (use-package typescript-mode
+         :mode "\\.ts$")
+
+       (use-package tide
+         :hook (typescript-mode . tide-setup))
+
+       (use-package grunt
+         :init (setq grunt-base-command "./node_modules/.bin/grunt")
+         :commands (grunt-exec))
      #+END_SRC
      
 *** java
