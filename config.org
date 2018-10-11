@@ -572,7 +572,15 @@
 *** Ruby
     #+BEGIN_SRC emacs-lisp
       (use-package ruby-mode
-        :mode "\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'")
+        :mode "\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'"
+        :config
+        (setq ruby-insert-encoding-magic-comment nil))
+
+      (use-package inf-ruby)
+
+      (use-package robe
+        :after (ruby-mode inf-ruby)
+        :hook (ruby-mode . robe-mode))
     #+END_SRC
 
 *** Markup Languages
