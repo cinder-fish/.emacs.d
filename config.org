@@ -117,6 +117,14 @@
         :config (exec-path-from-shell-initialize))
     #+END_SRC
     
+*** Direnv
+     #+BEGIN_SRC emacs-lisp
+       (use-package direnv
+         :if (executable-find "direnv")
+         :config
+         (direnv-mode))
+    #+END_SRC
+
 *** Show number of matches during i-search
     #+BEGIN_SRC emacs-lisp
       (use-package anzu
