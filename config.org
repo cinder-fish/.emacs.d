@@ -389,7 +389,8 @@
 ** Restclient
 *** Mode
     #+BEGIN_SRC emacs-lisp
-      (require 'restclient (expand-file-name "vendored/restclient.el/restclient.el" site-lisp-dir))
+      (use-package restclient
+              :load-path "site-lisp/vendored/restclient.el")
     #+END_SRC
 ** Org
 *** Global key bindings
@@ -402,10 +403,6 @@
 
 *** Settings
     #+BEGIN_SRC emacs-lisp
-      (org-babel-do-load-languages
-       'org-babel-load-languages
-       '((emacs-lisp . t)))
-
       (defun my-settings/gtd-file (name)
         "Resolve the location of gtd org file NAME"
         (let ((gtd-dir (expand-file-name "gtd" user-emacs-directory)))
@@ -459,7 +456,8 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((dot . t)
-     (emacs-lisp . t)))
+     (emacs-lisp . t)
+     (restclient . t)))
 
   (setq org-confirm-babel-evaluate (lambda (lang body)
                                      (not (string= lang "dot"))))
@@ -469,7 +467,11 @@
                                               (org-redisplay-inline-images))))
 
 #+END_SRC
-
+**** ob-restclient
+#+BEGIN_SRC emacs-lisp
+  (use-package ob-restclient
+    :after restclient)
+#+END_SRC
 ** Magit
    Effective and very complete UI for git commit and history
    manipulation. Always my go-to for interacting with git
