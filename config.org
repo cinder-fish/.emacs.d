@@ -82,6 +82,13 @@
     (fringe-mode 10)
      #+END_SRC
 
+**** Window history
+     #+BEGIN_SRC emacs-lisp
+       (when (fboundp 'winner-mode)
+         (setq winner-dont-bind-my-keys t)
+         (winner-mode 1))
+     #+END_SRC
+
 *** TODO Add site-lisp to 'load-path
     #+BEGIN_SRC emacs-lisp
       (setq site-lisp-dir (expand-file-name "site-lisp" user-emacs-directory))
