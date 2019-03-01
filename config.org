@@ -290,22 +290,6 @@
        (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^#.*#$")
      #+END_SRC
      
-*** Minibuffer selections
-    Use fuzzy matching when making selections in the mini buffer
-    #+BEGIN_SRC emacs-lisp
-      (use-package ido-completing-read+)
-
-      (use-package flx-ido
-        :after (ido-completing-read+)
-        :ensure t
-        :config (progn
-                  (ido-mode 1)
-                  (ido-everywhere 1)
-                  (ido-ubiquitous-mode)
-                  (flx-ido-mode 1)
-                  (setq ido-use-faces nil)))
-    #+END_SRC
-
 *** Buffer naming
     Change the default behaviour of appending '<2>' etc. to duplicate
     buffer names to instead derive a new name by expanding the file path
