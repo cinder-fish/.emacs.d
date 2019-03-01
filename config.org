@@ -120,8 +120,10 @@
     On Mac use the same exec path as the shell
     #+BEGIN_SRC emacs-lisp
       (use-package exec-path-from-shell
-        :if (memq window-system '(max ns))
-        :config (exec-path-from-shell-initialize))
+        :if (memq window-system '(mac ns x))
+        :config
+        (exec-path-from-shell-initialize)
+        (exec-path-from-shell-copy-env "GOPATH"))
     #+END_SRC
     
 *** Direnv
@@ -581,17 +583,68 @@
     #+END_SRC
 
 *** Go
+    Requires some additional tools:
+ - golang.org/x/tools/cmd/goimports
+ - github.com/rogpeppe/godef
+ - github.com/stamblerre/gocode
+ - golang.org/x/tools/cmd/guru
+
     #+BEGIN_SRC emacs-lisp
       (use-package go-mode
-        :mode "\\.go\\'")
+        :mode "\\.go\\'"
+        :hook (go-mode . flycheck-mode)
+        :config 
+        (if (executable-find "goimports")
+            (setq gofmt-command "goimports")
+          (display-warning '(user-configuration) "Unable to find `goimports' on path, not configuring it..."))
+
+        (unless (executable-find "godef")
+          (display-warning '(user-configuration) "Unable to find `godef' on path"))
+
+        (unless (executable-find "gocode")
+          (display-warning '(user-configuration) "Unable to find `gocode' on path"))
+
+        (defun my-go-mode-before-save-hook ()
+          (when (eq major-mode 'go-mode)
+            (gofmt-before-save)))
+
+        (add-hook 'before-save-hook #'my-go-mode-before-save-hook))
+
+      (use-package company-go
+        :config
+        (add-to-list 'company-backends 'company-go))
+
+      (use-package go-eldoc
+        :diminish eldoc-mode
+        :after go-mode
+        :config (add-hook 'go-mode-hook 'go-eldoc-setup))
+
+      (unless (executable-find "guru")
+        (display-warning '(user-configuration) "Unable to find `guru' on path"))
+
+      ;; go guru not compatible with modules
+
+      ;; (use-package go-guru
+      ;;   :if (exectuable-find "guru")
+      ;;   :after go-mode
+      ;;   :hook (go-mode . go-guru-hl-identifier-mode))
+
     #+END_SRC
 
 *** Ruby
     #+BEGIN_SRC emacs-lisp
       (use-package ruby-mode
         :mode "\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'"
+        :hook (ruby-mode . flycheck-mode)
         :config
-        (setq ruby-insert-encoding-magic-comment nil))
+        (setq ruby-insert-encoding-magic-comment nil)
+        (defun custom-bundle-exec-flycheck-command-wrapper-function (command)
+          (let ((executable (car command))
+                (args (cdr command)))
+            (if (string-match-p "rubocop$" executable)
+                (append '("bundle" "exec" "rubocop") args)
+              command)))
+        (setq flycheck-command-wrapper-function 'custom-bundle-exec-flycheck-command-wrapper-function))
 
       (use-package inf-ruby)
 
@@ -665,12 +718,6 @@
     #+BEGIN_SRC emacs-lisp
           (use-package log4j-mode
             :mode "\\.log\\'")
-    #+END_SRC
-
-*** golang
-    #+BEGIN_SRC emacs-lisp
-      (use-package go-mode
-        :mode "\\.go\\'")
     #+END_SRC
 
 *** CSharp
