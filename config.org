@@ -289,7 +289,11 @@
      #+BEGIN_SRC emacs-lisp
        (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^#.*#$")
      #+END_SRC
-     
+
+**** Prevent clash with C-o
+     #+BEGIN_SRC emacs-lisp
+       (define-key dired-mode-map "\C-o" nil)
+     #+END_SRC
 *** Buffer naming
     Change the default behaviour of appending '<2>' etc. to duplicate
     buffer names to instead derive a new name by expanding the file path
