@@ -596,7 +596,8 @@
         :config 
         (defun my-go-mode-before-save-hook ()
           (when (eq major-mode 'go-mode)
-            (lsp-format-buffer)))
+            (lsp-format-buffer)
+            (lsp-organize-imports)))
 
         (add-hook 'before-save-hook #'my-go-mode-before-save-hook))
     #+END_SRC
@@ -686,8 +687,12 @@
      
 *** java
     #+BEGIN_SRC emacs-lisp
-          (use-package log4j-mode
-            :mode "\\.log\\'")
+      (use-package log4j-mode
+        :mode "\\.log\\'")
+
+      (use-package lsp-java
+        :after lsp-mode
+        :hook (java-mode . lsp))
     #+END_SRC
 
 *** CSharp
