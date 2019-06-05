@@ -483,12 +483,11 @@
 *** Generic
 **** LSP mode
      #+BEGIN_SRC emacs-lisp
-       (use-package lsp-mode
-         :commands lsp)
+       (use-package lsp-mode :commands lsp :pin melpa)
 
-       (use-package lsp-ui :commands lsp-ui-mode)
-       (use-package company-lsp :commands company-lsp)
-       (use-package helm-lsp :after helm)
+       (use-package lsp-ui :commands lsp-ui-mode :pin melpa)
+       (use-package company-lsp :commands company-lsp :pin melpa)
+       (use-package helm-lsp :after helm :pin melpa)
      #+END_SRC
 
 *** Lisp
