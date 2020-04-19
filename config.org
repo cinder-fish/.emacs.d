@@ -368,13 +368,14 @@
                                               eww-current-url))
                                 "*") t))
      #+END_SRC
-*** Neotree
-     #+BEGIN_SRC emacs-lisp
-       (use-package neotree
-         :after (all-the-icons)
+*** Treemacs
+     #+BEGIN_SRC emacs-lisp :exports nil
+       (use-package treemacs
          :config
-         (setq neo-autorefresh nil)
-         (setq neo-theme 'icons))
+         (treemacs-resize-icons 44))
+
+       (use-package treemacs-magit
+         :after treemacs magit)
      #+END_SRC
 *** emojify
      #+BEGIN_SRC emacs-lisp
