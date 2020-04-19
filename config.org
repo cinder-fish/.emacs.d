@@ -326,7 +326,8 @@
         :bind (("M-x"     . helm-M-x)
                ("C-x C-f" . helm-find-files)
                ("C-x C-p" . helm-browse-project)
-               ("C-x b"   . helm-buffers-list))
+               ("C-x b"   . helm-buffers-list)
+               ("C-x C-b" . helm-buffers-list))
         :config (progn
                   (helm-mode t))
         :demand)
