@@ -410,31 +410,27 @@
 
 *** Settings
     #+BEGIN_SRC emacs-lisp
-      (defun my-settings/gtd-file (name)
-        "Resolve the location of gtd org file NAME"
-        (let ((gtd-dir (expand-file-name "gtd" user-emacs-directory)))
-          (expand-file-name name gtd-dir)))
+      (defun my-settings/org-file (name)
+        "Resolve the location of org file NAME"
+        (let ((org-dir (expand-file-name "~/org")))
+          (expand-file-name name org-dir)))
 
       (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
-      (let ((active  (my-settings/gtd-file "active.org"))
-            (inbox   (my-settings/gtd-file "inbox.org"))
-            (someday (my-settings/gtd-file "someday.org")))
-        (setq org-agenda-files (list active))
+      (let ((todo  (my-settings/org-file "todo.org"))
+            (done   (my-settings/org-file "done.org")))
+        (setq org-agenda-files (list todo))
         (setq org-default-notes-file nil)
         (setq org-completion-use-ido nil)
         (setq org-log-done nil)
         (setq org-outline-path-complete-in-steps nil)
-        (setq org-refile-targets `((,active  :regexp . "Actions")
-                                   (,active  :regexp . "Projects")
-                                   (,active  :regexp . "Done")
-                                   (,someday :maxlevel . 9)))
+        (setq org-refile-targets `((,done  :maxlevel . 1)))
         (setq org-refile-use-outline-path t)
         (setq org-outline-path-complete-in-steps nil)
-        (setq org-capture-templates (list
-                                     `("i" "Idea for later review" entry (file ,inbox) "* %?")
-                                     `("a" "A new action" entry (file+headline ,active "Actions") "* %? %^g")
-                                     `("p" "A new project" entry (file+headline ,active "Projects") "* %?")))
+        ;; (setq org-capture-templates (list
+        ;;                              `("i" "Idea for later review" entry (file ,inbox) "* %?")
+        ;;                              `("a" "A new action" entry (file+headline ,active "Actions") "* %? %^g")
+        ;;                              `("p" "A new project" entry (file+headline ,active "Projects") "* %?")))
         (setq org-export-with-toc nil)
         (setq org-export-backends '(ascii html icalendar latex md odt))
 
