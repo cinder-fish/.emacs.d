@@ -687,7 +687,8 @@
 
        (use-package tide
          :hook ((typescript-mode . tide-setup)
-                (typescript-mode . flycheck-mode)))
+                (typescript-mode . flycheck-mode))
+         :pin melpa)
 
        (use-package grunt
          :init (setq grunt-base-command "./node_modules/.bin/grunt")
