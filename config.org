@@ -159,9 +159,10 @@
 *** Mac options
     #+BEGIN_SRC emacs-lisp
       (when (eq system-type 'darwin)
-        (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-        (setq ns-use-proxy-icon nil)
-        (setq frame-title-format nil))
+	(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+	(setq ns-use-proxy-icon nil)
+	(setq frame-title-format nil)
+	(set-default-font "Hack 12" nil t))
     #+END_SRC
 ** Emacs tools / utilities
 *** Elisp Libraries
@@ -764,7 +765,7 @@
         :commands (kubernetes-overview))
     #+END_SRC
 ** OSX
-   Some specific configuration when running on OSX
+   Some specific configuration when running on Mac OSX
 
     #+BEGIN_SRC emacs-lisp
       (when (memq window-system '(max ns))
@@ -787,13 +788,13 @@
             (start-process-shell-command "Switch to IntelliJ" nil
                                          "osascript -e 'activate application \"IntelliJ IDEA\"'")))
 
-        (global-set-key (kbd "s-O") 'osx--open-in-intellij)
-
         ;; set a default emoji-font for all frames
 
         (add-hook 'after-make-frame-functions
                   (lambda (frame)
                     (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji")
+                                      frame 'prepend)
+                    (set-fontset-font t 'unicode (font-spec :family "Apple Color Emoji")
                                       frame 'prepend)))
 
         ;; macos has visual glitches with visible-bell
