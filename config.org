@@ -690,6 +690,8 @@
        (use-package grunt
          :init (setq grunt-base-command "./node_modules/.bin/grunt")
          :commands (grunt-exec))
+
+       (setq js-indent-level 2)
      #+END_SRC
      
 *** java
