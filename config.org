@@ -461,10 +461,13 @@
    'org-babel-load-languages
    '((dot . t)
      (emacs-lisp . t)
-     (restclient . t)))
+     (restclient . t)
+     (verb . t)))
 
   (setq org-confirm-babel-evaluate (lambda (lang body)
-                                     (not (string= lang "dot"))))
+                                     (cond ((string= lang "dot") nil)
+                                           ((string= lang "verb") nil)
+                                           (t t))))
 
   (add-hook 'org-babel-after-execute-hook (lambda ()
                                             (when org-inline-image-overlays
