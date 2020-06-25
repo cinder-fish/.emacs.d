@@ -154,6 +154,73 @@
 
       (add-to-list 'custom-theme-load-path themes-dir)
       (load-theme 'material t)
+
+      ;; header-line config
+
+      (use-package all-the-icons
+        :ensure t)
+
+      (set-frame-parameter (selected-frame)
+                           'internal-border-width 8)
+
+
+      (defun my-settings/mode-line-render (left right)
+        (let* ((available-width (- (window-width) (length left))))
+          (format (format "%%s %%%ds" available-width) left right)))
+
+      (defun my-settings/mode-line-separate (FORMS)
+        (--map
+         `(:eval (if ,it (concat ,it " ")))
+         FORMS))
+
+      (defun my-settings/mode-line-mode-icon ()
+        (let ((icon (all-the-icons-icon-for-mode major-mode)))
+          (unless (symbolp icon)
+            (propertize icon
+                        'face `(:family ,(all-the-icons-icon-family-for-mode major-mode) :inherit)
+                        'display '(raise 0)))))
+
+      (defun my-settings/mode-line-modified ()
+        (let* ((icons-alist
+                '(("*" all-the-icons-faicon-family all-the-icons-faicon "chain-broken" :height 1.2 :v-adjust -0.0)
+                  ;; ("-" all-the-icons-faicon-family all-the-icons-faicon "link" :height 1.2 :v-adjust -0.0)
+                  ("%" all-the-icons-faicon-family all-the-icons-faicon "lock" :height 1.2 :v-adjust -0.0)))
+               (result (cdr (assoc (format-mode-line "%*") icons-alist))))
+          (if result
+              (propertize (apply (cadr result) (cddr result))
+                          'face `(:family ,(funcall (car result))))
+            " ")))
+
+      (my-settings/mode-line-modified)
+
+      (setq-default header-line-format
+                    `((:eval
+                       (my-settings/mode-line-render
+                        (format-mode-line
+                         '(" "
+                           "%e"
+                           ,(my-settings/mode-line-separate
+                             '((my-settings/mode-line-mode-icon)))
+                           "%b "))
+
+                        (format-mode-line
+                         '((:eval (my-settings/mode-line-modified))
+                           " "
+                           "%4l:%2c"))))))
+
+      (setq x-underline-at-descent-line t)
+
+      (set-face-attribute 'header-line nil
+                          :underline t
+                          :overline nil
+                          :weight 'regular
+                          :foreground 'unspecified
+                          :box `(:line-width 4 :color ,(frame-parameter nil 'background-color))
+                          :inherit 'mode-line)
+
+      (set-face-attribute 'mode-line nil
+                          :background (frame-parameter nil 'background-color)
+                          :overline t)
     #+END_SRC
 
 *** Mac options
@@ -162,6 +229,7 @@
 	(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 	(setq ns-use-proxy-icon nil)
 	(setq frame-title-format nil)
+        (set-frame-name nil)
 	(set-default-font "Hack 12" nil t))
     #+END_SRC
 ** Emacs tools / utilities
@@ -301,22 +369,6 @@
     #+BEGIN_SRC emacs-lisp
   (require 'uniquify)
   (setq uniquify-buffer-name-style 'forward)
-    #+END_SRC
-
-*** Mode-line
-    #+BEGIN_SRC emacs-lisp
-      (use-package all-the-icons
-        :ensure t)
-
-      (use-package spaceline
-        :ensure t)
-
-      (use-package spaceline-all-the-icons
-        :after (spaceline all-the-icons)
-        :ensure t
-        :config
-        (setq-default powerline-default-separator 'utf-8)
-        (spaceline-all-the-icons-theme))
     #+END_SRC
 
 *** Helm
