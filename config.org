@@ -481,12 +481,13 @@
 #+END_SRC
 ** Magit
    Effective and very complete UI for git commit and history
-   manipulation. Always my go-to for interacting with git
+   manipulation.
    #+BEGIN_SRC emacs-lisp
      (use-package git-commit)
      (use-package orgit)
      (use-package magit
-       :commands magit-status)
+       :commands magit-status
+       :config (add-to-list 'same-window-regexps "magit: .*"))
    #+END_SRC
 
 ** Languages / Smaller Tools
