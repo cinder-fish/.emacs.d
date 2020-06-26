@@ -53,7 +53,7 @@
 *** GC Threshold
     Allow higher memory usage
     #+BEGIN_SRC emacs-lisp
-      (setq gc-cons-threshold 20000000)
+      (setq gc-cons-threshold (* 200 1000 1000))
     #+END_SRC
 
 *** Frame decoration / behaviour
