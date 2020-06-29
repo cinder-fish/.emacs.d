@@ -240,6 +240,8 @@
                            " "
                            "%4l:%2c"))))))
 
+      (setq-default mode-line-format nil)
+
       (setq x-underline-at-descent-line t)
 
       (set-face-attribute 'header-line nil
