@@ -588,13 +588,9 @@
 
 ** Languages / Smaller Tools
 *** Generic
-**** LSP mode
+**** Eglot mode
      #+BEGIN_SRC emacs-lisp
-       (use-package lsp-mode :commands lsp :pin melpa)
-
-       (use-package lsp-ui :commands lsp-ui-mode :pin melpa)
-       (use-package company-lsp :commands company-lsp :pin melpa)
-       (use-package helm-lsp :after helm :pin melpa)
+       (use-package eglot-mode :pin melpa)
      #+END_SRC
 
 *** Lisp
@@ -696,12 +692,13 @@
       (use-package go-mode
         :mode "\\.go\\'"
         :hook ((go-mode . flycheck-mode)
-               (go-mode . lsp))
-        :config 
+               (go-mode . eglot-ensure))
+        :config
         (defun my-go-mode-before-save-hook ()
           (when (eq major-mode 'go-mode)
-            (lsp-format-buffer)
-            (lsp-organize-imports)))
+            (eglot-format)
+            ;(lsp-organize-imports) note - no equiv for eglot?
+            ))
 
         (add-hook 'before-save-hook #'my-go-mode-before-save-hook))
     #+END_SRC
@@ -796,10 +793,7 @@
     #+BEGIN_SRC emacs-lisp
       (use-package log4j-mode
         :mode "\\.log\\'")
-
-      (use-package lsp-java
-        :after lsp-mode
-        :hook (java-mode . lsp))
+      (add-hook 'java-mode 'eglot-ensure)
     #+END_SRC
 
 *** CSharp
