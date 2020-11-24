@@ -555,8 +555,8 @@
    'org-babel-load-languages
    '((dot . t)
      (emacs-lisp . t)
-     (restclient . t)
-     (verb . t)))
+     (verb . t)
+     (shell . t)))
 
   (setq org-confirm-babel-evaluate (lambda (lang body)
                                      (cond ((string= lang "dot") nil)
@@ -567,12 +567,6 @@
                                             (when org-inline-image-overlays
                                               (org-redisplay-inline-images))))
 
-#+END_SRC
-
-**** ob-restclient
-#+BEGIN_SRC emacs-lisp
-  (use-package ob-restclient
-    :after restclient)
 #+END_SRC
 
 ** Magit
