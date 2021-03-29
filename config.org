@@ -584,7 +584,9 @@
 *** Generic
 **** Eglot mode
      #+BEGIN_SRC emacs-lisp
-       (use-package eglot-mode :pin melpa)
+       (use-package project :ensure t)
+       (use-package flycheck :pin melpa)
+       (use-package eglot)
      #+END_SRC
 
 *** Lisp
