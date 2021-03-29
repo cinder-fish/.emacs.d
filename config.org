@@ -264,7 +264,7 @@
 	(setq ns-use-proxy-icon nil)
 	(setq frame-title-format nil)
         (set-frame-name nil)
-	(set-default-font "Hack 12" nil t))
+	(set-frame-font "Hack 12" nil t))
     #+END_SRC
 
 ** Emacs tools / utilities
