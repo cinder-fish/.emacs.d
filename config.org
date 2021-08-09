@@ -240,6 +240,13 @@
                            " "
                            "%4l:%2c"))))))
 
+      (defun my-settings/optional-mode-line (format)
+        (let ((rendered (format-mode-line format)))
+          (if (or (string-blank-p rendered))
+              (s-equals-p "" rendered)
+            nil
+            format)))
+
       (setq-default mode-line-format nil)
 
       (setq x-underline-at-descent-line t)
@@ -255,6 +262,9 @@
       (set-face-attribute 'mode-line nil
                           :background (frame-parameter nil 'background-color)
                           :overline t)
+
+      (set-face-attribute 'mode-line-inactive nil
+                          :background (face-attribute 'mode-line :background))
     #+END_SRC
 
 *** Mac options
@@ -830,6 +840,14 @@
                      rainbow-delimiters-mode))))
     #+END_SRC
 
+*** Rust
+    #+BEGIN_SRC emacs-lisp
+      (use-package cargo :pin melpa)
+      (use-package rust-mode :pin melpa
+        :after (cargo lsp-mode)
+        :hook (lsp cargo-minor-mode)
+        :config (setq rust-format-on-save t))
+    #+END_SRC
 *** Docker
     #+BEGIN_SRC emacs-lisp
       (use-package dockerfile-mode
