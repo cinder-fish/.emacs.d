@@ -504,7 +504,7 @@
     #+BEGIN_SRC emacs-lisp
      (global-set-key "\C-cl" 'org-store-link)
      (global-set-key "\C-ca" 'org-agenda)
-     (global-set-key "\C-cb" 'org-iswitchb)
+     (global-set-key "\C-cb" 'org-switchb)
      (global-set-key "\C-cc" 'org-capture)
     #+END_SRC
 
@@ -543,15 +543,6 @@
     Create org links to dired directories
     #+BEGIN_SRC emacs-lisp
     (require 'org-dired-link)
-    #+END_SRC
-
-*** Org-Trello
-    Download/Upload trello boards as org files
-    #+BEGIN_SRC emacs-lisp
-      (add-to-list 'auto-mode-alist '("\\.trello$" . org-mode))
-      (use-package org-trello
-        :mode "\\.trello$"
-	:config (setq org-trello-current-prefix-keybinding "C-c o"))
     #+END_SRC
 
 *** Babel
