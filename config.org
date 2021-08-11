@@ -755,17 +755,10 @@
 
 *** js
      #+BEGIN_SRC emacs-lisp
-       (use-package indium
-         :commands (indium-run-node)
-         :hook (js2-mode . indium-interaction-mode))
-
        (use-package typescript-mode
-         :mode "\\.ts$")
-
-       (use-package tide
-         :hook ((typescript-mode . tide-setup)
-                (typescript-mode . flycheck-mode))
-         :pin melpa)
+         :mode "\\.ts$"
+         :hook ((typescript-mode . flycheck-mode)
+                (typescript-mode . eglot-ensure)))
 
        (use-package grunt
          :init (setq grunt-base-command "./node_modules/.bin/grunt")
