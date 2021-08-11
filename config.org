@@ -830,10 +830,11 @@
     #+BEGIN_SRC emacs-lisp
       (use-package cargo :pin melpa)
       (use-package rust-mode :pin melpa
-        :after (cargo lsp-mode)
-        :hook (lsp cargo-minor-mode)
+        :after (cargo)
+        :hook (eglot-ensure)
         :config (setq rust-format-on-save t))
     #+END_SRC
+
 *** Docker
     #+BEGIN_SRC emacs-lisp
       (use-package dockerfile-mode
