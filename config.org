@@ -476,13 +476,6 @@
          (global-emojify-mode))
      #+END_SRC
 
-** Restclient
-*** Mode
-    #+BEGIN_SRC emacs-lisp
-      (use-package restclient
-              :load-path "site-lisp/vendored/restclient.el")
-    #+END_SRC
-
 ** Verb
     #+BEGIN_SRC emacs-lisp
       (use-package verb
