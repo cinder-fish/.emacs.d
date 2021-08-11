@@ -53,7 +53,7 @@
 *** GC Threshold
     Allow higher memory usage
     #+BEGIN_SRC emacs-lisp
-      (setq gc-cons-threshold (* 200 1000 1000))
+      (setq gc-cons-threshold (* 500 1024 1024))
     #+END_SRC
 
 *** Resize frames to fill available space
