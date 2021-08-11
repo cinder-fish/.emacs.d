@@ -840,12 +840,6 @@
                       (company-terraform-init)))
     #+END_SRC
 
-*** Kubernetes
-    #+BEGIN_SRC emacs-lisp
-      (use-package kubernetes
-        :commands (kubernetes-overview))
-    #+END_SRC
-
 ** Epilogue
    Actions which need to be taken after other config
 
