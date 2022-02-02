@@ -628,24 +628,6 @@
 
       #+END_SRC
 
-***** clj-refactor
-      Refactoring fns for clojure, requires nrepl middleware to fully
-      function.
-      #+BEGIN_SRC emacs-lisp
-        (use-package clj-refactor
-          :bind (:map clojure-mode-map
-                 ("C-c C-m" . hydra-cljr-help-menu/body)
-                 :map clojurescript-mode-map
-                 ("C-c C-m" . hydra-cljr-help-menu/body))
-          :config (progn
-                    (setq cljr-warn-on-eval nil)
-
-                    (my-settings/add-hooks
-                     '(clojure-mode-hook
-                       clojurescript-mode-hook)
-                     '((lambda () (yas-minor-mode 1))))))
-      #+END_SRC
-
 *** Haskell
     #+BEGIN_SRC emacs-lisp
       (use-package haskell-mode
