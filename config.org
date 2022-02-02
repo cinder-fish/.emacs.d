@@ -568,7 +568,7 @@
      #+BEGIN_SRC emacs-lisp
        (use-package project :ensure t)
        (use-package flycheck :pin melpa)
-       (use-package eglot)
+       (use-package eglot :pin melpa)
      #+END_SRC
 
 *** Lisp
