@@ -16,3 +16,6 @@
 [submodule "site-lisp/vendored/restclient.el"]
 	path = site-lisp/vendored/restclient.el
 	url = https://github.com/pashky/restclient.el.git
+[submodule "site-lisp/vendored/Highlight-Indentation-for-Emacs"]
+	path = site-lisp/vendored/Highlight-Indentation-for-Emacs
+	url = https://github.com/antonj/Highlight-Indentation-for-Emacs.git
