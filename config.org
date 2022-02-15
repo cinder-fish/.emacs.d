@@ -98,7 +98,7 @@
         (server-start))
     #+END_SRC
 
-*** Use same exec-path as shell
+*** Use same exec-path as shell                                         :Mac:
     Use the same exec path as the shell
     #+BEGIN_SRC emacs-lisp
       (use-package exec-path-from-shell
@@ -113,7 +113,7 @@
      (setq visible-bell t)
     #+END_SRC
 
-*** OSX specific config
+*** OSX specific config                                                 :Mac:
     #+BEGIN_SRC emacs-lisp
       (when (memq window-system '(max ns))
 
@@ -267,7 +267,7 @@
                           :background (face-attribute 'mode-line :background))
     #+END_SRC
 
-*** Mac options
+*** Mac options                                                         :Mac:
     #+BEGIN_SRC emacs-lisp
       (when (eq system-type 'darwin)
 	(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
@@ -280,8 +280,7 @@
 ** Emacs tools / utilities
 *** Elisp Libraries
 **** dash
-     Modern composable list api, it's actually already loaded in order
-     to execute this file
+     Composable list api, already loaded in order to execute this file
 
 **** request
      Handy http lib
@@ -307,7 +306,6 @@
 
 *** Editing
 **** tabs
-     no thank you.
      #+BEGIN_SRC emacs-lisp
   (setq-default indent-tabs-mode nil)
      #+END_SRC
@@ -325,21 +323,6 @@
      #+BEGIN_SRC emacs-lisp
        (use-package rainbow-delimiters)
        (show-paren-mode)
-     #+END_SRC
-
-**** multiple cursors
-     Have multiple editing cursors at once
-     #+BEGIN_SRC emacs-lisp
-       (use-package multiple-cursors
-         :commands (mc/edit-beginnings-of-lines mc/edit-ends-of-lines mc/edit-lines)
-         :functions hydra-multiple-cursors-menu/body
-         :init (progn
-                 (defhydra hydra-multiple-cursors-menu (:color blue)
-                   "multiple-cursors"
-                   ("a" mc/edit-beginnings-of-lines "edit beginnings")
-                   ("e" mc/edit-ends-of-lines "edit ends")
-                   ("c" mc/edit-lines "edit column")))
-         :bind ("C-c m" . hydra-multiple-cursors-menu/body))
      #+END_SRC
 
 **** expand region
@@ -467,24 +450,6 @@
          :after treemacs magit)
      #+END_SRC
 
-*** emojify
-     #+BEGIN_SRC emacs-lisp
-       (use-package emojify
-         :ensure t
-         :config
-         (emojify-set-emoji-styles '(unicode))
-         (global-emojify-mode))
-     #+END_SRC
-
-** Verb
-    #+BEGIN_SRC emacs-lisp
-      (use-package verb
-        :after org
-        :config
-        (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
-        (setq verb-auto-kill-response-buffers t))
-    #+END_SRC
-
 ** Org
 *** Global key bindings
     #+BEGIN_SRC emacs-lisp
@@ -551,9 +516,17 @@
 
 #+END_SRC
 
+** Verb
+    #+BEGIN_SRC emacs-lisp
+      (use-package verb
+        :after org
+        :config
+        (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
+        (setq verb-auto-kill-response-buffers t))
+    #+END_SRC
+
 ** Magit
-   Effective and very complete UI for git commit and history
-   manipulation.
+   Effective UI for git commit and history manipulation.
    #+BEGIN_SRC emacs-lisp
      (use-package git-commit)
      (use-package orgit)
@@ -628,21 +601,8 @@
 
       #+END_SRC
 
-*** Haskell
-    #+BEGIN_SRC emacs-lisp
-      (use-package haskell-mode
-        :mode (("\\.hsc\\'" . haskell-mode)
-               ("\\.l[gh]s\\'" . literate-haskell-mode)
-               ("\\.[gh]s\\'" . haskell-mode)
-               ("\\.cabal\\'" . haskell-cabal-mode)
-               ("\\.chs\\'" . haskell-c2hs-mode)
-               ("\\.ghci\\'" . ghci-script-mode)
-               ("\\.dump-simpl\\'" . ghc-core-mode)
-               ("\\.hcr\\'" . ghc-core-mode)))
-    #+END_SRC
-
 *** Go
-    Requires some additional tools:
+   Requires some additional tools:
  - golang.org/x/tools/cmd/goimports
  - github.com/rogpeppe/godef
  - github.com/stamblerre/gocode
@@ -678,8 +638,6 @@
               command)))
         (setq flycheck-command-wrapper-function 'custom-bundle-exec-flycheck-command-wrapper-function))
 
-      (use-package inf-ruby)
-
       (use-package robe
         :after (ruby-mode inf-ruby)
         :hook (ruby-mode . robe-mode))
@@ -701,7 +659,6 @@
      #+END_SRC
 
 **** xml
-     Use nxml-mode for xml files
      #+BEGIN_SRC emacs-lisp
        (add-to-list 'auto-mode-alist '("\\.xml\\'"  . nxml-mode))
        (add-to-list 'auto-mode-alist '("\\.xslt\\'" . nxml-mode))
