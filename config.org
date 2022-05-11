@@ -1,4 +1,5 @@
 #+TITLE: Emacs configuration
+#+STARTUP indent
 #+PROPERTY: header-args               :results silent
 #+PROPERTY: header-args:emacs-lisp    :tangle yes
 
