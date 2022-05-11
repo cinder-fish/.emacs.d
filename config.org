@@ -605,6 +605,10 @@
  - golang.org/x/tools/cmd/guru
 
     #+BEGIN_SRC emacs-lisp
+      (use-package flycheck-golangci-lint
+        :ensure t
+        :hook (go-mode . flycheck-golangci-lint-setup))
+
       (use-package go-mode
         :mode "\\.go\\'"
         :hook ((go-mode . flycheck-mode)
@@ -612,9 +616,7 @@
         :config
         (defun my-go-mode-before-save-hook ()
           (when (eq major-mode 'go-mode)
-            (eglot-format)
-            ;(lsp-organize-imports) note - no equiv for eglot?
-            ))
+            (eglot-format)))
 
         (add-hook 'before-save-hook #'my-go-mode-before-save-hook))
     #+END_SRC
