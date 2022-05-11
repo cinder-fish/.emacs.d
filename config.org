@@ -502,7 +502,6 @@
    'org-babel-load-languages
    '((dot . t)
      (emacs-lisp . t)
-     (verb . t)
      (shell . t)))
 
   (setq org-confirm-babel-evaluate (lambda (lang body)
@@ -522,7 +521,10 @@
         :after org
         :config
         (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
-        (setq verb-auto-kill-response-buffers t))
+        (setq verb-auto-kill-response-buffers t)
+        (append org-babel-load-languages
+                '((verb . t))))
+
     #+END_SRC
 
 ** Magit
