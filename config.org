@@ -169,9 +169,13 @@
       (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
      #+END_SRC
 
-**** Fringes
+**** Frame settings
      #+BEGIN_SRC emacs-lisp
-    (fringe-mode 10)
+       (setq default-frame-alist '((vertical-scroll-bars . nil)
+                                   (left-fringe . 10)
+                                   (right-fringe . 10)))
+
+       (setq initial-frame-alist default-frame-alist)
      #+END_SRC
 
 *** [[https://github.com/cpaulik/emacs-material-theme][Material theme]]
