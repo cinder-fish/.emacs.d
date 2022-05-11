@@ -49,12 +49,6 @@
     #+BEGIN_SRC emacs-lisp
       (setq inhibit-startup-message t)
     #+END_SRC
-    
-*** GC Threshold
-    Allow higher memory usage
-    #+BEGIN_SRC emacs-lisp
-      (setq gc-cons-threshold (* 500 1024 1024))
-    #+END_SRC
 
 *** Resize frames to fill available space
     Fixes an issue with some GUI environments where emacs resizes
