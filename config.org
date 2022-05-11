@@ -363,12 +363,6 @@
     #+END_SRC
 
 *** Dired
-**** Dired+    
-     Extension fns for dired
-     #+BEGIN_SRC emacs-lisp
-    (require 'dired+)
-     #+END_SRC
-
 **** Omit files
      Omit '=.=', '=..=', auto-save, lock and temporary files when hiding in dired
      #+BEGIN_SRC emacs-lisp
